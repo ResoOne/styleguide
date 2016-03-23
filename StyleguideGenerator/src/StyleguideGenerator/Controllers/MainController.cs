@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
-namespace StyleguideGenerator.Mvc.Controllers
+namespace StyleguideGenerator.Controllers
 {
     public class MainController : Controller
     {

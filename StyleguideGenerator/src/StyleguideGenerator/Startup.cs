@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 
 namespace StyleguideGenerator
 {
@@ -27,10 +21,7 @@ namespace StyleguideGenerator
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes => routes.MapRoute(
-                name: "default",
-                template: "{controller}/{action}/{id?}",
-                defaults: new {controller = "Main", action = "Index"}
+            app.UseMvc(routes => routes.MapRoute("default", "{controller}/{action}/{id?}", new {controller = "Main", action = "Index"}
             ));
         }
 
