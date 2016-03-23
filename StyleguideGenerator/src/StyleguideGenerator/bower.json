@@ -1,0 +1,8 @@
+{
+  "name": "sg bower",
+  "private": true,
+  "dependencies": {
+    "jquery": "2.2.2",
+    "open-iconic": "~1.1.1"
+  }
+}
