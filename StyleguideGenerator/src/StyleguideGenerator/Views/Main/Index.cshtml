@@ -1,1 +1,28 @@
-﻿<p>zzzzz</p>
+﻿@using StyleguideGenerator.Controllers
+<p>zzzzz</p>
+@foreach (var g in ViewBag.g)
+{
+    <p>@g</p>
+}
+
+
+<hr />
+
+<p>
+    @ViewBag.st
+</p>
+
+<hr />
+
+<ul>
+    @foreach (var sps in ViewBag.sp as Dictionary<string,List<Selector>>)
+    {
+        <li>
+            <p><b>@sps.Key</b></p>
+            @foreach(var s in sps.Value)
+            {
+                <div>@s.selector</div>
+            }
+        </li>
+    }
+</ul>

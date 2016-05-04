@@ -26,6 +26,20 @@ var plug = {
     jsmin2: require("gulp-minify")
 }
 
+
+gulp.task("cssparse", function () {
+    return gulp.src([dir.from.scripts + "/*.js"])
+        .pipe(plug.jsmin2({
+            ext: {
+                src: '.debug.js',
+                min: '.min.js'
+            },
+            noSource: false
+        }))
+      .pipe(gulp.dest(dir.to.scripts));
+});
+
+
 gulp.task("cssmin", function () {
     gulp.src([dir.from.sass + "/*.scss"])
       .pipe(plug.sass().on("error", plug.sass.logError))

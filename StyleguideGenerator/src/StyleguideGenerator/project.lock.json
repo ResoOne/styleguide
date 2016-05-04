@@ -823,6 +823,25 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Data"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Data.Sqlite.dll": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1484,6 +1503,15 @@
         }
       },
       "System.Text.Encoding.Extensions/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Text.RegularExpressions/4.0.0": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -2231,6 +2259,32 @@
           "lib/dotnet5.4/Microsoft.CSharp.dll": {}
         }
       },
+      "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-beta-23516",
+          "System.ComponentModel": "4.0.1-beta-23516",
+          "System.Data.Common": "4.0.1-beta-23516",
+          "System.Diagnostics.Debug": "4.0.11-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO.FileSystem": "4.0.1-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Reflection": "4.1.0-beta-23516",
+          "System.Resources.ResourceManager": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Runtime.Extensions": "4.0.11-beta-23516",
+          "System.Runtime.Handles": "4.0.1-beta-23516",
+          "System.Runtime.InteropServices": "4.0.21-beta-23516",
+          "System.Text.Encoding": "4.0.11-beta-23516",
+          "System.Threading.Tasks": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Data.Sqlite.dll": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -2750,6 +2804,23 @@
           "lib/dotnet/System.Collections.Immutable.dll": {}
         }
       },
+      "System.Collections.NonGeneric/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Globalization": "4.0.10",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Threading": "4.0.10"
+        },
+        "compile": {
+          "ref/dotnet/System.Collections.NonGeneric.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/System.Collections.NonGeneric.dll": {}
+        }
+      },
       "System.ComponentModel/4.0.1-beta-23516": {
         "type": "package",
         "dependencies": {
@@ -2827,6 +2898,26 @@
         },
         "compile": {
           "ref/dotnet5.1/System.Console.dll": {}
+        }
+      },
+      "System.Data.Common/4.0.1-beta-23516": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.10",
+          "System.Collections.NonGeneric": "4.0.0",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Text.RegularExpressions": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet5.1/System.Data.Common.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/System.Data.Common.dll": {}
         }
       },
       "System.Diagnostics.Contracts/4.0.1-beta-23516": {
@@ -3096,7 +3187,7 @@
           "ref/dnxcore50/_._": {}
         }
       },
-      "System.Reflection/4.1.0-beta-23225": {
+      "System.Reflection/4.1.0-beta-23516": {
         "type": "package",
         "dependencies": {
           "System.IO": "4.0.0",
@@ -3104,7 +3195,7 @@
           "System.Runtime": "4.0.20"
         },
         "compile": {
-          "ref/dotnet/System.Reflection.dll": {}
+          "ref/dotnet5.4/System.Reflection.dll": {}
         },
         "runtime": {
           "lib/DNXCore50/System.Reflection.dll": {}
@@ -3426,21 +3517,13 @@
           "lib/DNXCore50/System.Text.Encoding.Extensions.dll": {}
         }
       },
-      "System.Text.RegularExpressions/4.0.11-beta-23516": {
+      "System.Text.RegularExpressions/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.10",
-          "System.Globalization": "4.0.10",
-          "System.Resources.ResourceManager": "4.0.0",
-          "System.Runtime": "4.0.20",
-          "System.Runtime.Extensions": "4.0.10",
-          "System.Threading": "4.0.10"
+          "System.Runtime": "4.0.0"
         },
         "compile": {
-          "ref/dotnet5.4/System.Text.RegularExpressions.dll": {}
-        },
-        "runtime": {
-          "lib/dotnet5.4/System.Text.RegularExpressions.dll": {}
+          "ref/dotnet/System.Text.RegularExpressions.dll": {}
         }
       },
       "System.Threading/4.0.11-beta-23516": {
@@ -4394,6 +4477,28 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Data"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Data.Sqlite.dll": {}
+        },
+        "native": {
+          "runtimes/win7-x86/native/sqlite3.dll": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -5055,6 +5160,15 @@
         }
       },
       "System.Text.Encoding.Extensions/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Text.RegularExpressions/4.0.0": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -5897,6 +6011,28 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Data"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Data.Sqlite.dll": {}
+        },
+        "native": {
+          "runtimes/win7-x64/native/sqlite3.dll": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6558,6 +6694,15 @@
         }
       },
       "System.Text.Encoding.Extensions/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Text.RegularExpressions/4.0.0": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -7306,6 +7451,35 @@
         },
         "runtime": {
           "lib/dotnet5.4/Microsoft.CSharp.dll": {}
+        }
+      },
+      "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-beta-23516",
+          "System.ComponentModel": "4.0.1-beta-23516",
+          "System.Data.Common": "4.0.1-beta-23516",
+          "System.Diagnostics.Debug": "4.0.11-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO.FileSystem": "4.0.1-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Reflection": "4.1.0-beta-23516",
+          "System.Resources.ResourceManager": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Runtime.Extensions": "4.0.11-beta-23516",
+          "System.Runtime.Handles": "4.0.1-beta-23516",
+          "System.Runtime.InteropServices": "4.0.21-beta-23516",
+          "System.Text.Encoding": "4.0.11-beta-23516",
+          "System.Threading.Tasks": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Data.Sqlite.dll": {}
+        },
+        "native": {
+          "runtimes/win7-x86/native/sqlite3.dll": {}
         }
       },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
@@ -8181,6 +8355,26 @@
           "ref/dotnet5.1/System.Console.dll": {}
         }
       },
+      "System.Data.Common/4.0.1-beta-23516": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.10",
+          "System.Collections.NonGeneric": "4.0.0",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Text.RegularExpressions": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet5.1/System.Data.Common.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/System.Data.Common.dll": {}
+        }
+      },
       "System.Diagnostics.Contracts/4.0.1-beta-23516": {
         "type": "package",
         "dependencies": {
@@ -8493,7 +8687,7 @@
           "ref/dnxcore50/_._": {}
         }
       },
-      "System.Reflection/4.1.0-beta-23225": {
+      "System.Reflection/4.1.0-beta-23516": {
         "type": "package",
         "dependencies": {
           "System.IO": "4.0.0",
@@ -8501,7 +8695,7 @@
           "System.Runtime": "4.0.20"
         },
         "compile": {
-          "ref/dotnet/System.Reflection.dll": {}
+          "ref/dotnet5.4/System.Reflection.dll": {}
         },
         "runtime": {
           "lib/DNXCore50/System.Reflection.dll": {}
@@ -8896,21 +9090,13 @@
           "lib/DNXCore50/System.Text.Encoding.Extensions.dll": {}
         }
       },
-      "System.Text.RegularExpressions/4.0.11-beta-23516": {
+      "System.Text.RegularExpressions/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.10",
-          "System.Globalization": "4.0.10",
-          "System.Resources.ResourceManager": "4.0.0",
-          "System.Runtime": "4.0.20",
-          "System.Runtime.Extensions": "4.0.10",
-          "System.Threading": "4.0.10"
+          "System.Runtime": "4.0.0"
         },
         "compile": {
-          "ref/dotnet5.4/System.Text.RegularExpressions.dll": {}
-        },
-        "runtime": {
-          "lib/dotnet5.4/System.Text.RegularExpressions.dll": {}
+          "ref/dotnet/System.Text.RegularExpressions.dll": {}
         }
       },
       "System.Threading/4.0.11-beta-23516": {
@@ -9785,6 +9971,35 @@
           "lib/dotnet5.4/Microsoft.CSharp.dll": {}
         }
       },
+      "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-beta-23516",
+          "System.ComponentModel": "4.0.1-beta-23516",
+          "System.Data.Common": "4.0.1-beta-23516",
+          "System.Diagnostics.Debug": "4.0.11-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO.FileSystem": "4.0.1-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Reflection": "4.1.0-beta-23516",
+          "System.Resources.ResourceManager": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Runtime.Extensions": "4.0.11-beta-23516",
+          "System.Runtime.Handles": "4.0.1-beta-23516",
+          "System.Runtime.InteropServices": "4.0.21-beta-23516",
+          "System.Text.Encoding": "4.0.11-beta-23516",
+          "System.Threading.Tasks": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Data.Sqlite.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Data.Sqlite.dll": {}
+        },
+        "native": {
+          "runtimes/win7-x64/native/sqlite3.dll": {}
+        }
+      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -10658,6 +10873,26 @@
           "ref/dotnet5.1/System.Console.dll": {}
         }
       },
+      "System.Data.Common/4.0.1-beta-23516": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.10",
+          "System.Collections.NonGeneric": "4.0.0",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Text.RegularExpressions": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet5.1/System.Data.Common.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/System.Data.Common.dll": {}
+        }
+      },
       "System.Diagnostics.Contracts/4.0.1-beta-23516": {
         "type": "package",
         "dependencies": {
@@ -10970,7 +11205,7 @@
           "ref/dnxcore50/_._": {}
         }
       },
-      "System.Reflection/4.1.0-beta-23225": {
+      "System.Reflection/4.1.0-beta-23516": {
         "type": "package",
         "dependencies": {
           "System.IO": "4.0.0",
@@ -10978,7 +11213,7 @@
           "System.Runtime": "4.0.20"
         },
         "compile": {
-          "ref/dotnet/System.Reflection.dll": {}
+          "ref/dotnet5.4/System.Reflection.dll": {}
         },
         "runtime": {
           "lib/DNXCore50/System.Reflection.dll": {}
@@ -11373,21 +11608,13 @@
           "lib/DNXCore50/System.Text.Encoding.Extensions.dll": {}
         }
       },
-      "System.Text.RegularExpressions/4.0.11-beta-23516": {
+      "System.Text.RegularExpressions/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.10",
-          "System.Globalization": "4.0.10",
-          "System.Resources.ResourceManager": "4.0.0",
-          "System.Runtime": "4.0.20",
-          "System.Runtime.Extensions": "4.0.10",
-          "System.Threading": "4.0.10"
+          "System.Runtime": "4.0.0"
         },
         "compile": {
-          "ref/dotnet5.4/System.Text.RegularExpressions.dll": {}
-        },
-        "runtime": {
-          "lib/dotnet5.4/System.Text.RegularExpressions.dll": {}
+          "ref/dotnet/System.Text.RegularExpressions.dll": {}
         }
       },
       "System.Threading/4.0.11-beta-23516": {
@@ -12182,6 +12409,29 @@
         "ref/wpa81/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._"
+      ]
+    },
+    "Microsoft.Data.Sqlite/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "54F32OBWIWMIpeKggCMEX+Bp/TiAiKzBaQ4z+IRr61eNSnJhxMnLE/QWDs5YbCtbDlWIB4+VBC1rnT8PFGCtdw==",
+      "files": [
+        "build/net451/Microsoft.Data.Sqlite.props",
+        "build/netcore50/Microsoft.Data.Sqlite.targets",
+        "build/netcore50/win10-arm/native/sqlite3.dll",
+        "build/netcore50/win10-x64/native/sqlite3.dll",
+        "build/netcore50/win10-x86/native/sqlite3.dll",
+        "lib/dotnet5.4/Microsoft.Data.Sqlite.dll",
+        "lib/dotnet5.4/Microsoft.Data.Sqlite.xml",
+        "lib/net451/Microsoft.Data.Sqlite.dll",
+        "lib/net451/Microsoft.Data.Sqlite.xml",
+        "lib/netcore50/Microsoft.Data.Sqlite.dll",
+        "lib/netcore50/Microsoft.Data.Sqlite.xml",
+        "Microsoft.Data.Sqlite.1.0.0-rc1-final.nupkg",
+        "Microsoft.Data.Sqlite.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Data.Sqlite.nuspec",
+        "runtimes/win7-x64/native/sqlite3.dll",
+        "runtimes/win7-x86/native/sqlite3.dll"
       ]
     },
     "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
@@ -13339,6 +13589,38 @@
         "System.Console.4.0.0-beta-23516.nupkg",
         "System.Console.4.0.0-beta-23516.nupkg.sha512",
         "System.Console.nuspec"
+      ]
+    },
+    "System.Data.Common/4.0.1-beta-23516": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "fMYiiL3/cXaozWH08y/kB25BZf6eBf5EWxBZnjDECNBRkaJgsa4/0S6543NK11UpsWYYHBUFsX4roSq8GddkpA==",
+      "files": [
+        "lib/dotnet5.4/System.Data.Common.dll",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Data.Common.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "ref/dotnet5.1/de/System.Data.Common.xml",
+        "ref/dotnet5.1/es/System.Data.Common.xml",
+        "ref/dotnet5.1/fr/System.Data.Common.xml",
+        "ref/dotnet5.1/it/System.Data.Common.xml",
+        "ref/dotnet5.1/ja/System.Data.Common.xml",
+        "ref/dotnet5.1/ko/System.Data.Common.xml",
+        "ref/dotnet5.1/ru/System.Data.Common.xml",
+        "ref/dotnet5.1/System.Data.Common.dll",
+        "ref/dotnet5.1/System.Data.Common.xml",
+        "ref/dotnet5.1/zh-hans/System.Data.Common.xml",
+        "ref/dotnet5.1/zh-hant/System.Data.Common.xml",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Data.Common.dll",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "System.Data.Common.4.0.1-beta-23516.nupkg",
+        "System.Data.Common.4.0.1-beta-23516.nupkg.sha512",
+        "System.Data.Common.nuspec"
       ]
     },
     "System.Diagnostics.Contracts/4.0.1-beta-23516": {
@@ -14544,27 +14826,67 @@
         "System.Reflection.nuspec"
       ]
     },
-    "System.Reflection/4.1.0-beta-23225": {
+    "System.Reflection/4.1.0-beta-23516": {
       "type": "package",
       "serviceable": true,
-      "sha512": "WbLtaCxoe5XdqEyZuGpemSQ8YBJ8cj11zx+yxOxJfHbNrmu7oMQ29+J50swaqg3soUc3BVBMqfIhb/7gocDHQA==",
+      "sha512": "wfrnDfk8p2cqJQY3TTHsJRmf3cE3wa6BacncCn4dO58lVwQNNe9ASdLrLJZlMviAjx8+1fUpj6NX7leIOyaBJA==",
       "files": [
         "lib/DNXCore50/System.Reflection.dll",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
-        "lib/net46/_._",
+        "lib/net45/_._",
+        "lib/net46/System.Reflection.dll",
         "lib/netcore50/System.Reflection.dll",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
-        "ref/dotnet/System.Reflection.dll",
+        "ref/dotnet5.1/de/System.Reflection.xml",
+        "ref/dotnet5.1/es/System.Reflection.xml",
+        "ref/dotnet5.1/fr/System.Reflection.xml",
+        "ref/dotnet5.1/it/System.Reflection.xml",
+        "ref/dotnet5.1/ja/System.Reflection.xml",
+        "ref/dotnet5.1/ko/System.Reflection.xml",
+        "ref/dotnet5.1/ru/System.Reflection.xml",
+        "ref/dotnet5.1/System.Reflection.dll",
+        "ref/dotnet5.1/System.Reflection.xml",
+        "ref/dotnet5.1/zh-hans/System.Reflection.xml",
+        "ref/dotnet5.1/zh-hant/System.Reflection.xml",
+        "ref/dotnet5.4/de/System.Reflection.xml",
+        "ref/dotnet5.4/es/System.Reflection.xml",
+        "ref/dotnet5.4/fr/System.Reflection.xml",
+        "ref/dotnet5.4/it/System.Reflection.xml",
+        "ref/dotnet5.4/ja/System.Reflection.xml",
+        "ref/dotnet5.4/ko/System.Reflection.xml",
+        "ref/dotnet5.4/ru/System.Reflection.xml",
+        "ref/dotnet5.4/System.Reflection.dll",
+        "ref/dotnet5.4/System.Reflection.xml",
+        "ref/dotnet5.4/zh-hans/System.Reflection.xml",
+        "ref/dotnet5.4/zh-hant/System.Reflection.xml",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
-        "ref/net46/_._",
+        "ref/net45/_._",
+        "ref/net46/System.Reflection.dll",
+        "ref/netcore50/de/System.Reflection.xml",
+        "ref/netcore50/es/System.Reflection.xml",
+        "ref/netcore50/fr/System.Reflection.xml",
+        "ref/netcore50/it/System.Reflection.xml",
+        "ref/netcore50/ja/System.Reflection.xml",
+        "ref/netcore50/ko/System.Reflection.xml",
+        "ref/netcore50/ru/System.Reflection.xml",
+        "ref/netcore50/System.Reflection.dll",
+        "ref/netcore50/System.Reflection.xml",
+        "ref/netcore50/zh-hans/System.Reflection.xml",
+        "ref/netcore50/zh-hant/System.Reflection.xml",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "runtimes/win8-aot/lib/netcore50/System.Reflection.dll",
-        "System.Reflection.4.1.0-beta-23225.nupkg",
-        "System.Reflection.4.1.0-beta-23225.nupkg.sha512",
+        "System.Reflection.4.1.0-beta-23516.nupkg",
+        "System.Reflection.4.1.0-beta-23516.nupkg.sha512",
         "System.Reflection.nuspec"
       ]
     },
@@ -15851,43 +16173,30 @@
         "System.Text.Encoding.Extensions.nuspec"
       ]
     },
-    "System.Text.RegularExpressions/4.0.11-beta-23516": {
+    "System.Text.RegularExpressions/4.0.0": {
       "type": "package",
-      "serviceable": true,
-      "sha512": "Iz3942FXA47VxsuJTBq4aA/gevsbdMhyUnQD6Y0aHt57oP6KAwZLaxVtrRzB03yxh6oGBlvQfxBlsXWnLLj4gg==",
+      "sha512": "D2CHm8LBIymJK9+1E3sn4cUEzMd6B+quQUrCGUluv9QFBNOdL3XqNu548QKeNplEXFOmF5aKXMxXbTrjbEUNMw==",
       "files": [
-        "lib/dotnet5.4/System.Text.RegularExpressions.dll",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
         "lib/net45/_._",
-        "lib/netcore50/System.Text.RegularExpressions.dll",
         "lib/win8/_._",
         "lib/wp80/_._",
         "lib/wpa81/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
-        "ref/dotnet5.1/de/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/es/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/fr/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/it/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/ja/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/ko/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/ru/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/System.Text.RegularExpressions.dll",
-        "ref/dotnet5.1/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/zh-hans/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.1/zh-hant/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/de/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/es/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/fr/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/it/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/ja/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/ko/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/ru/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/System.Text.RegularExpressions.dll",
-        "ref/dotnet5.4/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/zh-hans/System.Text.RegularExpressions.xml",
-        "ref/dotnet5.4/zh-hant/System.Text.RegularExpressions.xml",
+        "License.rtf",
+        "ref/dotnet/de/System.Text.RegularExpressions.xml",
+        "ref/dotnet/es/System.Text.RegularExpressions.xml",
+        "ref/dotnet/fr/System.Text.RegularExpressions.xml",
+        "ref/dotnet/it/System.Text.RegularExpressions.xml",
+        "ref/dotnet/ja/System.Text.RegularExpressions.xml",
+        "ref/dotnet/ko/System.Text.RegularExpressions.xml",
+        "ref/dotnet/ru/System.Text.RegularExpressions.xml",
+        "ref/dotnet/System.Text.RegularExpressions.dll",
+        "ref/dotnet/System.Text.RegularExpressions.xml",
+        "ref/dotnet/zh-hans/System.Text.RegularExpressions.xml",
+        "ref/dotnet/zh-hant/System.Text.RegularExpressions.xml",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
         "ref/net45/_._",
@@ -15907,8 +16216,8 @@
         "ref/wpa81/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
-        "System.Text.RegularExpressions.4.0.11-beta-23516.nupkg",
-        "System.Text.RegularExpressions.4.0.11-beta-23516.nupkg.sha512",
+        "System.Text.RegularExpressions.4.0.0.nupkg",
+        "System.Text.RegularExpressions.4.0.0.nupkg.sha512",
         "System.Text.RegularExpressions.nuspec"
       ]
     },
@@ -16349,9 +16658,11 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-rc1-final",
-      "Microsoft.AspNet.Server.Kestrel >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",
-      "Microsoft.AspNet.StaticFiles >= 1.0.0-rc1-final"
+      "Microsoft.AspNet.Server.Kestrel >= 1.0.0-rc1-final",
+      "Microsoft.AspNet.StaticFiles >= 1.0.0-rc1-final",
+      "Microsoft.Data.Sqlite >= 1.0.0-rc1-final",
+      "System.Text.RegularExpressions >= 4.0.0"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []

@@ -5,10 +5,11 @@
   },
   "dependencies": {
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final"
-
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+    "Microsoft.Data.Sqlite": "1.0.0-rc1-final",    
+    "System.Text.RegularExpressions": "4.0.0"
   },
 
   "commands": {
@@ -17,7 +18,12 @@
 
   "frameworks": {
     "dnx451": { },
-    "dnxcore50": { }
+    "dnxcore50": {
+      "dependencies": {
+        
+        
+      }
+    }
   },
 
   "exclude": [
