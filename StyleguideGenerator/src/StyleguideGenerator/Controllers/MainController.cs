@@ -8,6 +8,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Sqlite;
 using SFile = System.IO.File;
 using Microsoft.Extensions.PlatformAbstractions;
+using StyleguideGenerator.Models;
 
 namespace StyleguideGenerator.Controllers
 {
@@ -23,50 +24,96 @@ namespace StyleguideGenerator.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            string stream = SFile.ReadAllText(_appEnvironment.ApplicationBasePath+"/Src/Styles/sss.css");
-            ViewBag.st = stream;            
+            string stream = SFile.ReadAllText(_appEnvironment.ApplicationBasePath + "/Src/Styles/sss.css");
+            ViewBag.st = stream;
 
+            STree tree = new STree();
             var sp = stream.Split(new[] { '{', '}' });
-            Dictionary<string,List<Selector>> spp = new Dictionary<string, List<Selector>>(sp.Length / 2 + 1);
-            spp.Add("class", new List<Selector>());
-            spp.Add("id", new List<Selector>());
-            spp.Add("browser pref", new List<Selector>());
-            spp.Add("attr", new List<Selector>());
-            spp.Add("tag", new List<Selector>());
 
+            var arr = new char[] { '.', ':', '#', '[' };
 
-            var j = 0;
-            for(var i = 0; i < sp.Length-1; i++)
+            List<SelectorsLine> lns = new List<SelectorsLine>(sp.Length / 2 + 1);
+
+            List<SelectorsLineSet> lnss = new List<SelectorsLineSet>(sp.Length / 2 + 1);
+
+            var setIndex = 1;
+
+            for (var i = 0; i < sp.Length - 1; i++)
             {
                 if (i % 2 == 0)
                 {
-                    if (sp[i].StartsWith("."))
+                    int j = i + 1;
+                    var props = sp[j];
+                    var set = new SelectorsLineSet();
+                    set.Index = setIndex++;
+                    set.Prop = new SelectorProrepty() { Value = props };
+                    set.Str = sp[i];
+
+                    var sl_lines = set.Str.Split(new[] { ',' });
+                    var lineIndex = 1;
+                    for (var z = 0; z < sl_lines.Length; z++)
                     {
-                        spp.ElementAt(0).Value.Add(new Selector(sp[i], sp[i++]));
+                        SelectorsLine line = new SelectorsLine();
+                        var defl = lns.Find(l => l.StrLine == sl_lines[z]);
+                        if (defl != null)
+                        {
+                            line = defl;
+                            line.Properties.Values.Add(set.Prop);
+                        }
+                        else
+                        {
+                            line.Index = lineIndex++;
+                            line.StrLine = sl_lines[z];
+                            line.Properties.Values.Add(set.Prop);
+
+                            var slr = line.StrLine.Split(new[] { ' ', '>', '+', '~' });
+                            int slpos = 1;
+                            for (var k = 0; k < slr.Length; k++)
+                            {
+                                var sl = new Selector(slr[k]);
+                                sl.Index = slpos++;
+                                var txt = slr[k];
+                                int ix = 1, spos = 1;
+                                while (ix != -1 && txt.Length > 0)
+                                {
+                                    var su = new SelectorUnit();
+                                    if (txt.Length > 1 && txt[1] == ':') ix = 2;
+                                    ix = txt.IndexOfAny(arr, ix);
+                                    if (ix != -1)
+                                    {
+                                        var ssss = txt.Substring(0, ix);
+                                        if (ssss[ssss.Length - 1] == '(')
+                                        {
+                                            ix = txt.IndexOf(')') + 1;
+                                            ssss = txt.Substring(0, ix);
+                                        }
+                                        txt = txt.Remove(0, ix);
+                                        ix = 1;
+                                        su.Name = ssss;
+                                    }
+                                    else su.Name = txt;
+                                    su.Type = CheckSelectorType(su.Name);
+                                    su.Index = spos++;
+                                    sl.Units.Add(su);
+                                }
+                                line.Selectors.Add(sl);
+                            }
+                            lns.Add(line);
+                        }
+                        set.Set.Add(line);
                     }
-                    else if (sp[i].StartsWith("#"))
-                    {
-                        spp.ElementAt(1).Value.Add(new Selector(sp[i], sp[i++]));
-                    }
-                    else if (sp[i].StartsWith("-"))
-                    {
-                        spp.ElementAt(2).Value.Add(new Selector(sp[i], sp[i++]));
-                    }
-                    else if (sp[i].StartsWith("["))
-                    {
-                        spp.ElementAt(3).Value.Add(new Selector(sp[i], sp[i++]));
-                    }
-                    else
-                    {
-                        spp.ElementAt(4).Value.Add(new Selector(sp[i], sp[i++]));
-                    }
-                }                    
+                }
             }
 
-            
+            foreach (var l in lns)
+            {
+                var l2 = new SelectorsLine();
+                lns.Where(s => s.StrLine == l.StrLine).ToList().ForEach(ls => l2.Properties.Values.AddRange(ls.Properties.Values.GetRange(0, ls.Properties.Values.Count)));
+            }
 
-            ViewBag.sp = spp;            
-            using (var connection = new SqliteConnection("" +new SqliteConnectionStringBuilder{DataSource = "SggDb.db"}))
+            ViewBag.lines = lns.OrderBy(l => l.StrLine).ToList();
+
+            using (var connection = new SqliteConnection("" + new SqliteConnectionStringBuilder { DataSource = "SggDb.db" }))
             {
                 connection.Open();
 
@@ -92,7 +139,7 @@ namespace StyleguideGenerator.Controllers
 
                 //    transaction.Commit();
                 //}
-                Console.WriteLine("Connection Open");                
+                Console.WriteLine("Connection Open");
             }
 
 
@@ -103,18 +150,41 @@ namespace StyleguideGenerator.Controllers
             ViewBag.g = list;
             return View();
         }
-    }
-
-    public class Selector
-    {
-        public string selector { get; set; }
-
-        public string values { get; set; }
-
-        public Selector(string s, string v)
+        public SelectorType CheckSelectorType(string s)
         {
-            selector = s;
-            values = v;
+            if (s.StartsWith("."))
+            {
+                return SelectorType.Class;
+            }
+            else if (s.StartsWith("#"))
+            {
+                return SelectorType.ID;
+            }
+            else if (s.StartsWith("-"))
+            {
+                return SelectorType.VendorPref;
+            }
+            else if (s.StartsWith("["))
+            {
+                return SelectorType.Attribute;
+            }
+            else if (s.EndsWith(":before") || s.EndsWith(":after"))
+            {
+                return SelectorType.Pseudo;
+            }
+            else if (s.StartsWith("::"))
+            {
+                return SelectorType.VendorPref;
+            }
+            else if (s.StartsWith(":"))
+            {
+                return SelectorType.Sub;
+            }
+            else
+            {
+                return SelectorType.Tag;
+            }
+            //return SelectorType.Non;
         }
     }
 }

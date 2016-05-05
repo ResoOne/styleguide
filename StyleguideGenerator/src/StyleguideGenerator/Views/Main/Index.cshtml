@@ -1,4 +1,4 @@
-﻿@using StyleguideGenerator.Controllers
+﻿@using StyleguideGenerator.Models
 <p>zzzzz</p>
 @foreach (var g in ViewBag.g)
 {
@@ -8,21 +8,37 @@
 
 <hr />
 
-<p>
+@*<p>
     @ViewBag.st
 </p>
 
+<hr />*@
 <hr />
-
-<ul>
-    @foreach (var sps in ViewBag.sp as Dictionary<string,List<Selector>>)
+<div>
+    @foreach (var line in ViewBag.lines as List<SelectorsLine>)
     {
-        <li>
-            <p><b>@sps.Key</b></p>
-            @foreach(var s in sps.Value)
-            {
-                <div>@s.selector</div>
-            }
-        </li>
+        <div>
+            <p><b> @line.StrLine</b></p>
+            <div>
+                @foreach (var s in line.Selectors)
+                {
+                    <p><i>@s.Index</i> @s.Text</p>
+                    <ul>
+                        @foreach (var u in s.Units)
+                        {
+                            <li><i>@u.Index</i>  @u.Name <i>@u.Type</i></li>
+                        }
+                    </ul>
+                }
+            </div>
+            <div>
+                @foreach(var p in line.Properties.Values)
+                {
+                    <div>
+                        @p.Value
+                    </div>
+                }
+            </div>
+        </div>
     }
-</ul>
+</div>
