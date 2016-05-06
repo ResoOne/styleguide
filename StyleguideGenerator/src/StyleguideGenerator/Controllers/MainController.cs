@@ -3,22 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Sqlite;
 using SFile = System.IO.File;
-using Microsoft.Extensions.PlatformAbstractions;
 using StyleguideGenerator.Models;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.AspNet.Hosting;
 
 namespace StyleguideGenerator.Controllers
 {
-    public class MainController : Controller
+    public class MainController : BaseController
     {
-        private readonly IApplicationEnvironment _appEnvironment;
-
-        public MainController(IApplicationEnvironment appEnvironment)
+        public MainController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
         {
-            _appEnvironment = appEnvironment;
         }
 
         // GET: /<controller>/
@@ -47,7 +44,7 @@ namespace StyleguideGenerator.Controllers
                     var set = new SelectorsLineSet();
                     set.Index = setIndex++;
                     set.Prop = new SelectorProrepty() { Value = props };
-                    set.Str = sp[i];
+                    set.Str = sp[i].Trim();
 
                     var sl_lines = set.Str.Split(new[] { ',' });
                     var lineIndex = 1;
@@ -103,13 +100,7 @@ namespace StyleguideGenerator.Controllers
                         set.Set.Add(line);
                     }
                 }
-            }
-
-            foreach (var l in lns)
-            {
-                var l2 = new SelectorsLine();
-                lns.Where(s => s.StrLine == l.StrLine).ToList().ForEach(ls => l2.Properties.Values.AddRange(ls.Properties.Values.GetRange(0, ls.Properties.Values.Count)));
-            }
+            }            
 
             ViewBag.lines = lns.OrderBy(l => l.StrLine).ToList();
 

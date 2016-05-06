@@ -117,6 +117,44 @@ namespace StyleguideGenerator.Models
         }
     }
 
+    
+
+    public class NoParsedFile
+    {
+        string Name { get; set; }
+
+        string Content { get; set; }
+
+        public NoParsedFile(string name,string content)
+        {
+            Name = name;
+            Content = content;
+        }
+
+        public NoParsedFile() : this("", null)
+        {
+
+        }
+    }
+    public class ParsedFile : NoParsedFile
+    {
+
+        public List<SelectorsLineSet> Selectors { get; set; }
+
+
+        public ParsedFile(string name,string content):base(name,content)
+        {
+            Selectors = new List<SelectorsLineSet>();
+        }
+
+        public ParsedFile():base()
+        {
+            Selectors = new List<SelectorsLineSet>();
+        }
+    }
+
+
+
     public class STree
     {
         public List<SNode> Nodes;
