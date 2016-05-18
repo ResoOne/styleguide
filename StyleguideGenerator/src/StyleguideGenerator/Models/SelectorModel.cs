@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StyleguideGenerator.Modules;
 
 namespace StyleguideGenerator.Models
 {
     
-
-    public enum SelectorType
+    /// <summary>
+    /// Тип селектора
+    /// </summary>
+    public enum SelectorPartType
     {
         Non,
         Tag,
@@ -20,137 +23,212 @@ namespace StyleguideGenerator.Models
         Bind
     }
 
-    public class SelectorUnit
+    public enum SelectorUnitsConnect
     {
-        public string Name { get; set; }
-        public SelectorType Type { get; set; }
-
-        public Guid Ident { get; set; }
-
-        public int Index { get; set; }
-
-        public SelectorUnit():this("")
-        {
-        }
-
-        public SelectorUnit(string name)
-        {
-            Name = name;            
-            Type = SelectorType.Non;
-            Ident = new Guid();
-        }
+        First,
+        Descend,
+        Child,
+        Neighbor,
+        Next
     }
 
-
-    public class Selector
-    {
-        public string Text { get; set; }
-
-        public List<SelectorUnit> Units { get; set; }        
-
-        public Guid Ident { get; set; }
-
-        public int Index { get; set; }
-
-        public Selector() : this("")
-        {
-        }
-        public Selector(string s)
-        {
-            Text = s;
-            Ident = new Guid();
-            Units = new List<SelectorUnit>();
-        }
-    }
-
-    public class SelectorProrepty
+    /// <summary>
+    /// Свойство селектора
+    /// </summary>
+    public class Properties
     {
         public string Value { get; set; }
     }
 
-    public class Properties
+    /// <summary>
+    /// Список свойств селекторов
+    /// </summary>
+    public class PropertiesSet
     {
-        public List<SelectorProrepty> Values;
+        public List<Properties> Values;
 
-        public Properties()
+        public PropertiesSet()
         {
-            Values = new List<SelectorProrepty>();
+            Values = new List<Properties>();
         }
 
-        public Properties(SelectorProrepty v)
+        public PropertiesSet(Properties v)
         {
-            Values = new List<SelectorProrepty>() { v };
+            Values = new List<Properties>() { v };
         }
     }
 
+    /// <summary>
+    /// Часть простого селектора
+    /// </summary>
+    public class SelectorPart
+    {
+        /// <summary>
+        /// Текст
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// Тип
+        /// </summary>
+        public SelectorPartType Type { get; set; }
+
+        /// <summary>
+        /// Позиция
+        /// </summary>
+        public int Position { get; set; }
+        /// <summary>
+        /// Уникальный идентификатор
+        /// </summary>
+        /// 
+        public Guid Ident { get; set; }
+
+        public SelectorPart():this("")
+        {
+        }
+        public SelectorPart(string title)
+        {
+            Title = title;
+            Type = SelectorPartType.Non;
+            Ident = Guid.NewGuid();
+        }
+    }
+
+    /// <summary>
+    /// Простой селектор
+    /// </summary>
+    public class SelectorUnit
+    {
+        /// <summary>
+        /// Текст
+        /// </summary>
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Части простого селектора
+        /// </summary>
+        public List<SelectorPart> Parts { get; set; }
+
+        public SelectorUnitsConnect Connect { get; set; }
+
+        /// <summary>
+        /// Позиция
+        /// </summary>
+        public int Position { get; set; }
+        /// <summary>
+        /// Уникальный идентификатор
+        /// </summary>
+        public Guid Ident { get; set; }        
+
+        public SelectorUnit() : this("")
+        {
+        }
+        public SelectorUnit(string s)
+        {
+            Text = s;
+            Ident = Guid.NewGuid();
+            Parts = new List<SelectorPart>();
+            Connect = SelectorUnitsConnect.First;
+        }
+    }
+        
+    /// <summary>
+    /// Селектор
+    /// </summary>
+    public class Selector
+    {
+        /// <summary>
+        /// Строка селектора
+        /// </summary>
+        public string Str;
+        /// <summary>
+        /// Простые селекторы
+        /// </summary>
+        public List<SelectorUnit> Units;
+        /// <summary>
+        /// Свойства 
+        /// </summary>
+        public PropertiesSet PropertiesSet { get; set; }
+        ///// <summary>
+        ///// Позиция
+        ///// </summary>
+        //public int Position { get; set; }
+
+        public Selector()
+        {
+            Units = new List<SelectorUnit>();
+            Str = "";
+            PropertiesSet = new PropertiesSet();
+        }
+    }
+
+    /// <summary>
+    /// Строка селекторов
+    /// </summary>
     public class SelectorsLine
     {
-        public string StrLine;
-
-        public List<Selector> Selectors;
-
-        public Properties Properties { get; set; }
-
-        public int Index;
+        /// <summary>
+        /// Строка
+        /// </summary>
+        public string Str { get; set; }
+        /// <summary>
+        /// Список селекторов
+        /// </summary>
+        public List<Selector> Selectors { get; set; }
+        /// <summary>
+        /// Свойства
+        /// </summary>
+        public Properties Prop { get; set; }
+        /// <summary>
+        /// Позиция
+        /// </summary>
+        public int Position { get; set; }
 
         public SelectorsLine()
         {
             Selectors = new List<Selector>();
-            StrLine = "";
-            Properties = new Properties();
-        }
-    }
-
-    public class SelectorsLineSet
-    {
-        public int Index { get; set; }
-
-        public string Str { get; set; }
-
-        public List<SelectorsLine> Set { get; set; }
-
-        public SelectorProrepty Prop { get; set; }
-
-        public SelectorsLineSet()
-        {
-            Set = new List<SelectorsLine>();
         }
     }
 
     
 
-    public class NoParsedFile
+    public class UnparsedFile
     {
-        string Name { get; set; }
+        public string Name { get; set; }
 
-        string Content { get; set; }
+        public string FilesystemName { get; set; }
 
-        public NoParsedFile(string name,string content)
+        public string Content { get; set; }
+
+        public UnparsedFile(string name,string content,string fsname)
         {
             Name = name;
             Content = content;
-        }
-
-        public NoParsedFile() : this("", null)
-        {
-
-        }
+            FilesystemName = fsname;
+        }        
     }
-    public class ParsedFile : NoParsedFile
+    public class ParsedFile
     {
+        public string Name { get; set; }
 
-        public List<SelectorsLineSet> Selectors { get; set; }
+        public string FilesystemName { get; set; }
 
+        public List<SelectorsLine> SelectorsLines { get; set; }
 
-        public ParsedFile(string name,string content):base(name,content)
+        UnparsedFile unparsedFile { get; set; }
+
+        public ParsedFile(string name)
         {
-            Selectors = new List<SelectorsLineSet>();
+            Name = name;
+            SelectorsLines = new List<SelectorsLine>();
+            unparsedFile = null;
         }
-
-        public ParsedFile():base()
+        public ParsedFile(UnparsedFile upfile)
         {
-            Selectors = new List<SelectorsLineSet>();
-        }
+            Name = upfile.Name;
+            FilesystemName = upfile.FilesystemName;
+            SelectorsLines = CssParseModule.Parse(upfile.Content);
+            unparsedFile = upfile;
+        }        
     }
 
 

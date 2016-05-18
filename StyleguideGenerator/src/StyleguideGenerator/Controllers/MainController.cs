@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Sqlite;
 using SFile = System.IO.File;
 using StyleguideGenerator.Models;
-using Microsoft.Extensions.PlatformAbstractions;
+
 using Microsoft.AspNet.Hosting;
+using StyleguideGenerator.Modules;
 
 namespace StyleguideGenerator.Controllers
 {
@@ -21,88 +19,17 @@ namespace StyleguideGenerator.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            string filename = "sss.css";
+            string path = "/Src/Styles/" + filename;
+            var g = UserName + "_" + Guid.NewGuid().ToString("N") + "_" + filename;
             string stream = SFile.ReadAllText(_appEnvironment.ApplicationBasePath + "/Src/Styles/sss.css");
-            ViewBag.st = stream;
 
-            STree tree = new STree();
-            var sp = stream.Split(new[] { '{', '}' });
+            UnparsedFile unpfile = new UnparsedFile(filename, stream, g);
 
-            var arr = new char[] { '.', ':', '#', '[' };
+            var t = CssParseModule.Parse(unpfile);
+            ViewBag.lines = t.SelectorsLines;
 
-            List<SelectorsLine> lns = new List<SelectorsLine>(sp.Length / 2 + 1);
-
-            List<SelectorsLineSet> lnss = new List<SelectorsLineSet>(sp.Length / 2 + 1);
-
-            var setIndex = 1;
-
-            for (var i = 0; i < sp.Length - 1; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    int j = i + 1;
-                    var props = sp[j];
-                    var set = new SelectorsLineSet();
-                    set.Index = setIndex++;
-                    set.Prop = new SelectorProrepty() { Value = props };
-                    set.Str = sp[i].Trim();
-
-                    var sl_lines = set.Str.Split(new[] { ',' });
-                    var lineIndex = 1;
-                    for (var z = 0; z < sl_lines.Length; z++)
-                    {
-                        SelectorsLine line = new SelectorsLine();
-                        var defl = lns.Find(l => l.StrLine == sl_lines[z]);
-                        if (defl != null)
-                        {
-                            line = defl;
-                            line.Properties.Values.Add(set.Prop);
-                        }
-                        else
-                        {
-                            line.Index = lineIndex++;
-                            line.StrLine = sl_lines[z];
-                            line.Properties.Values.Add(set.Prop);
-
-                            var slr = line.StrLine.Split(new[] { ' ', '>', '+', '~' });
-                            int slpos = 1;
-                            for (var k = 0; k < slr.Length; k++)
-                            {
-                                var sl = new Selector(slr[k]);
-                                sl.Index = slpos++;
-                                var txt = slr[k];
-                                int ix = 1, spos = 1;
-                                while (ix != -1 && txt.Length > 0)
-                                {
-                                    var su = new SelectorUnit();
-                                    if (txt.Length > 1 && txt[1] == ':') ix = 2;
-                                    ix = txt.IndexOfAny(arr, ix);
-                                    if (ix != -1)
-                                    {
-                                        var ssss = txt.Substring(0, ix);
-                                        if (ssss[ssss.Length - 1] == '(')
-                                        {
-                                            ix = txt.IndexOf(')') + 1;
-                                            ssss = txt.Substring(0, ix);
-                                        }
-                                        txt = txt.Remove(0, ix);
-                                        ix = 1;
-                                        su.Name = ssss;
-                                    }
-                                    else su.Name = txt;
-                                    su.Type = CheckSelectorType(su.Name);
-                                    su.Index = spos++;
-                                    sl.Units.Add(su);
-                                }
-                                line.Selectors.Add(sl);
-                            }
-                            lns.Add(line);
-                        }
-                        set.Set.Add(line);
-                    }
-                }
-            }            
-
-            ViewBag.lines = lns.OrderBy(l => l.StrLine).ToList();
+            //ViewBag.st = stream;
 
             using (var connection = new SqliteConnection("" + new SqliteConnectionStringBuilder { DataSource = "SggDb.db" }))
             {
@@ -141,42 +68,6 @@ namespace StyleguideGenerator.Controllers
             ViewBag.g = list;
             return View();
         }
-        public SelectorType CheckSelectorType(string s)
-        {
-            if (s.StartsWith("."))
-            {
-                return SelectorType.Class;
-            }
-            else if (s.StartsWith("#"))
-            {
-                return SelectorType.ID;
-            }
-            else if (s.StartsWith("-"))
-            {
-                return SelectorType.VendorPref;
-            }
-            else if (s.StartsWith("["))
-            {
-                return SelectorType.Attribute;
-            }
-            else if (s.EndsWith(":before") || s.EndsWith(":after"))
-            {
-                return SelectorType.Pseudo;
-            }
-            else if (s.StartsWith("::"))
-            {
-                return SelectorType.VendorPref;
-            }
-            else if (s.StartsWith(":"))
-            {
-                return SelectorType.Sub;
-            }
-            else
-            {
-                return SelectorType.Tag;
-            }
-            //return SelectorType.Non;
-        }
     }
 }
 
@@ -198,3 +89,72 @@ namespace StyleguideGenerator.Controllers
 //dic.Add(nameof(REGEX_CLASS_SELECTORS), new Regex(REGEX_CLASS_SELECTORS).Matches(stream));
 //dic.Add(nameof(IMPORTANT_RULE), new Regex(IMPORTANT_RULE).Matches(stream));
 //dic.Add(nameof(REGEX_TAG_RULE), new Regex(REGEX_TAG_RULE).Matches(stream));
+
+
+
+//for (var i = 0; i < sp.Length - 1; i++)
+//{
+//    if (i % 2 == 0)
+//    {
+//        int j = i + 1;
+//        var props = sp[j];
+//        var set = new SelectorsLine();
+//        set.Position = setIndex++;
+//        set.Prop = new Properties() { Value = props };
+//        set.Str = sp[i].Trim();
+
+//        var sl_lines = set.Str.Split(new[] { ',' });
+//        var lineIndex = 1;
+//        for (var z = 0; z < sl_lines.Length; z++)
+//        {
+//            Selector line = new Selector();
+//            var defl = lns.Find(l => l.Str == sl_lines[z]);
+//            if (defl != null)
+//            {
+//                line = defl;
+//                line.PropertiesSet.Values.Add(set.Prop);
+//            }
+//            else
+//            {
+//                line.Position = lineIndex++;
+//                line.Str = sl_lines[z];
+//                line.PropertiesSet.Values.Add(set.Prop);
+
+//                var slr = line.Str.Split(new[] { ' ', '>', '+', '~' });
+//                int slpos = 1;
+//                for (var k = 0; k < slr.Length; k++)
+//                {
+//                    var sl = new SelectorUnit(slr[k]);
+//                    sl.Position = slpos++;
+//                    var txt = slr[k];
+//                    int ix = 1, spos = 1;
+//                    while (ix != -1 && txt.Length > 0)
+//                    {
+//                        var su = new SelectorPart();
+//                        if (txt.Length > 1 && txt[1] == ':') ix = 2;
+//                        ix = txt.IndexOfAny(arr, ix);
+//                        if (ix != -1)
+//                        {
+//                            var ssss = txt.Substring(0, ix);
+//                            if (ssss[ssss.Length - 1] == '(')
+//                            {
+//                                ix = txt.IndexOf(')') + 1;
+//                                ssss = txt.Substring(0, ix);
+//                            }
+//                            txt = txt.Remove(0, ix);
+//                            ix = 1;
+//                            su.Title = ssss;
+//                        }
+//                        else su.Title = txt;
+//                        su.Type = CheckSelectorPartType(su.Title);
+//                        su.Position = spos++;
+//                        sl.Parts.Add(su);
+//                    }
+//                    line.Units.Add(sl);
+//                }
+//                lns.Add(line);
+//            }
+//            set.Selectors.Add(line);
+//        }
+//    }
+//}       

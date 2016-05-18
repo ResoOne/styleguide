@@ -6,16 +6,18 @@ using StyleguideGenerator.Models;
 
 namespace StyleguideGenerator.Modules
 {
-    public static class DbFileModule
+    public class DbFileModule : DbBaseModule
     {
-        public static void SaveFileToBase()
+        
+        public void SaveFileToBase()
         {
             
         }
 
-        public static void ParseAndSaveFileToBase()
+        public void ParseAndSaveFileToBase()
         {
             
         }
+
     }
 }

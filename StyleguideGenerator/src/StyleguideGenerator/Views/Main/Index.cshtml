@@ -17,27 +17,35 @@
     @foreach (var line in ViewBag.lines as List<SelectorsLine>)
     {
         <div>
-            <p><b> @line.StrLine</b></p>
+            <p><b> @line.Str</b></p>
             <div>
                 @foreach (var s in line.Selectors)
                 {
-                    <p><i>@s.Index</i> @s.Text</p>
-                    <ul>
+                    <p>@s.Str</p>
+                    <div>
                         @foreach (var u in s.Units)
                         {
-                            <li><i>@u.Index</i>  @u.Name <i>@u.Type</i></li>
+                            <p><i>@u.Position</i> @u.Text</p>
+                            <ul>
+                                @foreach (var p in u.Parts)
+                                {
+                                    <li><i>@p.Position</i>  @p.Title <i>@p.Type</i></li>
+                                }
+                            </ul>                            
                         }
-                    </ul>
-                }
-            </div>
-            <div>
-                @foreach(var p in line.Properties.Values)
-                {
-                    <div>
-                        @p.Value
+                        <div>
+                            @foreach (var p in s.PropertiesSet.Values)
+                            {
+                                <div>
+                                    @p.Value
+                                </div>
+                            }
+                        </div>
+
                     </div>
-                }
-            </div>
+                                     
+                }                
+            </div>            
         </div>
     }
 </div>

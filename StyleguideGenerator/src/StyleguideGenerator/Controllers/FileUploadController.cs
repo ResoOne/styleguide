@@ -24,6 +24,7 @@ namespace StyleguideGenerator.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            
             return View();
         }
 
@@ -35,15 +36,16 @@ namespace StyleguideGenerator.Controllers
                 if (file != null && file.Length > 0)
                 {
                     var disp = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
-                    var fileName = disp.FileName.Trim('"');
+                    
+                    var fileName = disp.FileName.Trim('"').Replace(" ","_");
+                    var gd = Guid.NewGuid().ToString("N");
+                    var g = UserName+"_"+ gd + "_";
                     var fileContent = "";
                     using (var reader = new StreamReader(file.OpenReadStream()))
                     {
                         fileContent = reader.ReadToEnd();
                     }
-                    await file.SaveAsAsync(Path.Combine(uploads, fileName));
-
-                    
+                    await file.SaveAsAsync(Path.Combine(uploads, g+fileName));                    
                     if (parse)
                     {
                         
