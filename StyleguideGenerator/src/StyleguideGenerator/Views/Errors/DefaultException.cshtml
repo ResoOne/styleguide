@@ -1,0 +1,8 @@
+﻿@using StyleguideGenerator.Models.Errors
+@{
+    var t = ViewData.Model as ErrorResponse;
+}
+Default exception
+
+<p>@(t.Message ?? "Exception")</p>
+<textarea readonly>@(t.StackTrace ?? "Stack trace")</textarea>

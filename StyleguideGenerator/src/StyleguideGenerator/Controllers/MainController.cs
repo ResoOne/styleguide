@@ -7,6 +7,7 @@ using StyleguideGenerator.Models;
 
 using Microsoft.AspNet.Hosting;
 using StyleguideGenerator.Modules;
+using Microsoft.AspNet.Diagnostics;
 
 namespace StyleguideGenerator.Controllers
 {
@@ -24,43 +25,45 @@ namespace StyleguideGenerator.Controllers
             var g = UserName + "_" + Guid.NewGuid().ToString("N") + "_" + filename;
             string stream = SFile.ReadAllText(_appEnvironment.ApplicationBasePath + "/Src/Styles/sss.css");
 
-            UnparsedFile unpfile = new UnparsedFile(filename, stream, g);
+            
+            return View("~/Views/Shared/Error.cshtml", feature?.Error);
 
+
+            UnparsedFile unpfile = new UnparsedFile(filename, stream, g);
+            throw new Exception("develop exception");
             var t = CssParseModule.Parse(unpfile);
             ViewBag.lines = t.SelectorsLines;
-
             //ViewBag.st = stream;
 
-            using (var connection = new SqliteConnection("" + new SqliteConnectionStringBuilder { DataSource = "SggDb.db" }))
-            {
-                connection.Open();
+            //using (var connection = new SqliteConnection("" + new SqliteConnectionStringBuilder { DataSource = "SggDb.db" }))
+            //{
+            //    connection.Open();
 
-                //using (var transaction = connection.BeginTransaction())
-                //{
-                //    var insertCommand = connection.CreateCommand();
-                //    insertCommand.Transaction = transaction;
-                //    insertCommand.CommandText = "INSERT INTO message ( text ) VALUES ( $text )";
-                //    insertCommand.Parameters.AddWithValue("$text", "Hello, World!");
-                //    insertCommand.ExecuteNonQuery();
+            //    using (var transaction = connection.BeginTransaction())
+            //    {
+            //        var insertCommand = connection.CreateCommand();
+            //        insertCommand.Transaction = transaction;
+            //        insertCommand.CommandText = "INSERT INTO Selectors ( Name ) VALUES ( $text )";
+            //        insertCommand.Parameters.AddWithValue("$text", "");
+            //        insertCommand.ExecuteNonQuery();
 
-                //    var selectCommand = connection.CreateCommand();
-                //    selectCommand.Transaction = transaction;
-                //    selectCommand.CommandText = "SELECT text FROM message";
-                //    using (var reader = selectCommand.ExecuteReader())
-                //    {
-                //        while (reader.Read())
-                //        {
-                //            var message = reader.GetString(0);
-                //            Console.WriteLine(message);
-                //        }
-                //    }
+            //        //var selectCommand = connection.CreateCommand();
+            //        //selectCommand.Transaction = transaction;
+            //        //selectCommand.CommandText = "SELECT text FROM message";
+            //        //using (var reader = selectCommand.ExecuteReader())
+            //        //{
+            //        //    while (reader.Read())
+            //        //    {
+            //        //        var message = reader.GetString(0);
+            //        //        Console.WriteLine(message);
+            //        //    }
+            //        //}
 
-                //    transaction.Commit();
-                //}
-                Console.WriteLine("Connection Open");
-            }
-
-
+            //        transaction.Commit();
+            //    }
+            //    Console.WriteLine("Connection Open");
+            //}
+            
             var list = new List<string>();
             list.Add(Guid.NewGuid().ToString("N"));
             list.Add(Guid.NewGuid().ToString("N"));
