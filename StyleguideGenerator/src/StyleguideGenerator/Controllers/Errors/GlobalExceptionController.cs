@@ -9,7 +9,7 @@ namespace StyleguideGenerator.Controllers.Errors
     /// <summary>
     /// Контроллер ошибки приложения
     /// </summary>
-    public class DefaultException : Controller
+    public class GlobalExceptionController : Controller
     {        
         [Route("error")]
         public IActionResult Index()

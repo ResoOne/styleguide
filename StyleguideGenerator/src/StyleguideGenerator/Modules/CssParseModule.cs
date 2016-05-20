@@ -30,36 +30,14 @@ namespace StyleguideGenerator.Modules
 
         public static List<SelectorsLine> Parse(string content)
         {
-            StringBuilder sb = new StringBuilder();
-            var cindex = 0;
-            while (cindex != -1)
-            {
-                var si = content.IndexOf(@"/*",cindex);
-                var ei = -1;
-                if (si != -1)
-                {
-                    ei = content.IndexOf(@"*/", si);
-                    if (ei!=-1)
-                        sb.Append(content.Substring(cindex, si - cindex));
-                    else
-                        sb.Append(content.Substring(cindex, content.Length - cindex));
-                }
-                else
-                {
-                    sb.Append(content.Substring(cindex, content.Length - cindex));
-                }                
-                cindex = ei ==-1 ? -1 : ei+2;                
-            }
-            content = sb.ToString();
-            content = Regex.Replace(content, @"(\s+|\\n|\\r|\\t)"," ");
+            content = RemoveCommnetsAndWspace(content);            
             var sp = content.Split(new[] { '{', '}' });
             List<SelectorsLine> filelines = new List<SelectorsLine>(sp.Length / 2 + 1);
             List<Selector> fileselectors = new List<Selector>(sp.Length / 2 + 1);
 
             var linePosition = 1;
             for (var i = 0; i < sp.Length - 1; i++)
-            {
-                
+            {                
                 if (i % 2 == 0)
                 {
                     var line = new SelectorsLine();
@@ -73,6 +51,37 @@ namespace StyleguideGenerator.Modules
                 }
             }
             return filelines;
+        }
+
+        /// <summary>
+        /// Удаление комментариев из css
+        /// </summary>
+        /// <param name="content">Текс файла</param>
+        /// <returns>Текс файла без комментприев</returns>
+        private static string RemoveCommnetsAndWspace(string content)
+        {
+            content = Regex.Replace(content, @"(\s+|\\n|\\r|\\t)", " ");
+            StringBuilder sb = new StringBuilder();
+            var cindex = 0;
+            while (cindex != -1)
+            {
+                var si = content.IndexOf(@"/*", cindex);
+                var ei = -1;
+                if (si != -1)
+                {
+                    ei = content.IndexOf(@"*/", si);
+                    if (ei != -1)
+                        sb.Append(content.Substring(cindex, si - cindex));
+                    else
+                        sb.Append(content.Substring(cindex, content.Length - cindex));
+                }
+                else
+                {
+                    sb.Append(content.Substring(cindex, content.Length - cindex));
+                }
+                cindex = ei == -1 ? -1 : ei + 2;
+            }
+            return sb.ToString();
         }
 
         /// <summary>

@@ -7,9 +7,9 @@ using Microsoft.AspNet.Mvc;
 
 namespace StyleguideGenerator.Controllers.Errors
 {
-    public class StatusCode : BaseController
+    public class StatusCodeController : BaseController
     {
-        public StatusCode(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
+        public StatusCodeController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
         {
         }
 

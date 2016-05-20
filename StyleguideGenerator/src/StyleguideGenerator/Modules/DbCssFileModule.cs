@@ -7,7 +7,6 @@ namespace StyleguideGenerator.Modules
         public static bool SaveParsedFileToBase(ParsedFile filemodel)
         {
 
-            
             return true;
         }
     }
