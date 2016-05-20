@@ -1,8 +1,9 @@
-﻿@using StyleguideGenerator.Models.Errors
+﻿@using StyleguideGenerator.Models
 @{
-    var t = ViewData.Model as ErrorResponse;
+    var t = ViewData.Model as GlobalException;
 }
-Default exception
+<h2>Exception</h2>
 
-<p>@(t.Message ?? "Exception")</p>
-<textarea readonly>@(t.StackTrace ?? "Stack trace")</textarea>
+<h4>@t.UserLogin  @t.Dt</h4>
+<h4> @(t.Message ?? "Exception")</h4>
+<textarea style="width:100%; height:400px;" readonly>@(t.StackTrace ?? "Stack trace")</textarea>

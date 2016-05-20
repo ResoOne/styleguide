@@ -1,10 +1,5 @@
 ﻿@using StyleguideGenerator.Models
 <p>zzzzz</p>
-@foreach (var g in ViewBag.g)
-{
-    <p>@g</p>
-}
-
 
 <hr />
 
@@ -25,7 +20,7 @@
                     <div>
                         @foreach (var u in s.Units)
                         {
-                            <p><i>@u.Position</i> @u.Text</p>
+                            <p><i>@u.Position</i> @u.Text <i>@u.Connect</i></p>
                             <ul>
                                 @foreach (var p in u.Parts)
                                 {

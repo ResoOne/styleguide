@@ -2,25 +2,39 @@
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.Mvc;
-using StyleguideGenerator.Models.Errors;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+using StyleguideGenerator.Models;
 
 namespace StyleguideGenerator.Controllers.Errors
 {
+    /// <summary>
+    /// Контроллер ошибки приложения
+    /// </summary>
     public class DefaultException : Controller
-    {
-        // GET: /<controller>/
+    {        
         [Route("error")]
         public IActionResult Index()
         {
-            var response = new ErrorResponse();
+            var exception = new GlobalException();
             var feature = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            ViewData.Model = 
-            response.Message = "Exception Message from controller";
-            response.StackTrace = "stack trace stack trace";
-            ViewData.Model = response;
-            return View("~/Views/Errors/DefaultException.cshtml");
+            exception.Dt = DateTime.Now;
+            exception.UserLogin = HttpContext.User.Identity.Name ?? "defaultex no authenticated user";
+            exception.Message = feature.Error.Message;
+            exception.StackTrace = feature.Error.StackTrace;
+
+            var isAjax = HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            if (isAjax)
+            {
+                return new ObjectResult(exception)
+                {
+                    StatusCode = 500,
+                    DeclaredType = typeof(GlobalException)
+                };
+            }
+            else
+            {
+                ViewData.Model = exception;
+                return View("~/Views/Errors/DefaultException.cshtml");
+            }            
         }
     }
 }

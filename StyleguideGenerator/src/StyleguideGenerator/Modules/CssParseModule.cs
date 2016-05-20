@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using StyleguideGenerator.Models;
 using System.Text.RegularExpressions;
+using System.Text;
+using System.Linq;
 
 namespace StyleguideGenerator.Modules
 {
@@ -12,12 +14,11 @@ namespace StyleguideGenerator.Modules
     {
         private static readonly char[] _unitSplitChars = new[] { ' ', '>', '+', '~' };
         private static readonly char[] _partsSplitChars = new [] { '.', ':', '#', '[' };
-        private static readonly string _selectorSplitStr = @"(\s+|\>|\+|\~)";
+        private static readonly string _selectorSplitStr = @"(\s+(?!(\>|\+|\~))|\>|\s*\+\s*|\~)";
 
         public static ParsedFile Parse(UnparsedFile file)
         {
-            var parsedFile = new ParsedFile(file);
-            parsedFile.SelectorsLines = Parse(file.Content);
+            var parsedFile = new ParsedFile(file);            
             return parsedFile;
         }
         public static ParsedFile Parse(string name,string content)
@@ -29,6 +30,28 @@ namespace StyleguideGenerator.Modules
 
         public static List<SelectorsLine> Parse(string content)
         {
+            StringBuilder sb = new StringBuilder();
+            var cindex = 0;
+            while (cindex != -1)
+            {
+                var si = content.IndexOf(@"/*",cindex);
+                var ei = -1;
+                if (si != -1)
+                {
+                    ei = content.IndexOf(@"*/", si);
+                    if (ei!=-1)
+                        sb.Append(content.Substring(cindex, si - cindex));
+                    else
+                        sb.Append(content.Substring(cindex, content.Length - cindex));
+                }
+                else
+                {
+                    sb.Append(content.Substring(cindex, content.Length - cindex));
+                }                
+                cindex = ei ==-1 ? -1 : ei+2;                
+            }
+            content = sb.ToString();
+            content = Regex.Replace(content, @"(\s+|\\n|\\r|\\t)"," ");
             var sp = content.Split(new[] { '{', '}' });
             List<SelectorsLine> filelines = new List<SelectorsLine>(sp.Length / 2 + 1);
             List<Selector> fileselectors = new List<Selector>(sp.Length / 2 + 1);
@@ -36,11 +59,12 @@ namespace StyleguideGenerator.Modules
             var linePosition = 1;
             for (var i = 0; i < sp.Length - 1; i++)
             {
+                
                 if (i % 2 == 0)
                 {
                     var line = new SelectorsLine();
                     line.Position = linePosition++;
-                    var props = sp[i+1];                    
+                    var props = sp[i+1];
                     line.Prop = new Properties() { Value = props };
                     line.Str = sp[i].Trim();
                     line.Selectors = SplitSelectorsLine(line.Str,line.Prop,n => fileselectors.Find(l => l.Str == n));
@@ -68,7 +92,7 @@ namespace StyleguideGenerator.Modules
                 if (selector==null)
                 {
                     selector = new Selector();                                   
-                    selector.Str = splitresult[i];                    
+                    selector.Str = splitresult[i].Trim();                    
                     selector.Units = SplitSelector(selector.Str);
                     //selector.Position = position++;
                 }
@@ -83,9 +107,9 @@ namespace StyleguideGenerator.Modules
         /// <param name="selectorStr">Строка селектора</param>
         /// <returns>Список простых селекторов</returns>
         private static List<SelectorUnit> SplitSelector(string selectorStr)
-        {
-            var regresult = Regex.Split(selectorStr, _selectorSplitStr);
-            if (regresult.Length == 0) return null;
+        {           
+            string[] regresult = Regex.Split(selectorStr, _selectorSplitStr).Where(e => e.Length > 0).ToArray();            
+            if (regresult.Length == 0) return null;            
             var units = new List<SelectorUnit>();
             var funit = new SelectorUnit(regresult[0]);
             funit.Parts = SplitSelectorUnit(funit.Text);
@@ -97,9 +121,9 @@ namespace StyleguideGenerator.Modules
                 if (index % 2 == 0)
                 {
                     var unit = new SelectorUnit(regresult[index]);
-                    unit.Parts = SplitSelectorUnit(unit.Text);
+                    unit.Parts = SplitSelectorUnit(unit.Text.Trim());
                     unit.Position = position++;
-                    unit.Connect = CheckSelectorUnitConnect(regresult[index - 1]);
+                    unit.Connect = CheckSelectorUnitConnect(regresult[index - 1].Trim());
                     units.Add(unit);
                 }
             }

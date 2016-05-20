@@ -24,13 +24,7 @@ namespace StyleguideGenerator.Controllers
             string path = "/Src/Styles/" + filename;
             var g = UserName + "_" + Guid.NewGuid().ToString("N") + "_" + filename;
             string stream = SFile.ReadAllText(_appEnvironment.ApplicationBasePath + "/Src/Styles/sss.css");
-
-            
-            return View("~/Views/Shared/Error.cshtml", feature?.Error);
-
-
-            UnparsedFile unpfile = new UnparsedFile(filename, stream, g);
-            throw new Exception("develop exception");
+            UnparsedFile unpfile = new UnparsedFile(filename, stream, g);            
             var t = CssParseModule.Parse(unpfile);
             ViewBag.lines = t.SelectorsLines;
             //ViewBag.st = stream;

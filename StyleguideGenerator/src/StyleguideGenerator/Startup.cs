@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StyleguideGenerator.Infrastructure;
 
 namespace StyleguideGenerator
 {
@@ -20,11 +19,14 @@ namespace StyleguideGenerator
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();                
+                app.UseDeveloperExceptionPage();
             }
-
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
             app.UseStatusCodePagesWithReExecute("/error/{0}");
-            app.UseExceptionHandler("/error");
+            
             //app.UseIISPlatformHandler(); 
             app.UseStaticFiles();
 
@@ -38,7 +40,7 @@ namespace StyleguideGenerator
         {
             var builder = services.AddMvc();
             // Setup global exception filters
-            builder.AddMvcOptions(o => { o.Filters.Add(new GlobalExceptionFilter()); });//logger
+            //builder.AddMvcOptions(o => { o.Filters.Add(new GlobalExceptionFilter()); });//logger
         }
 
         // Entry point for the application.

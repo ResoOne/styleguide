@@ -8,6 +8,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Net.Http.Headers;
+using StyleguideGenerator.Models;
 using StyleguideGenerator.Modules;
 using SFile = System.IO.File;
 
@@ -29,7 +30,7 @@ namespace StyleguideGenerator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(ICollection<IFormFile> files, bool parse = false)
+        public async Task<IActionResult> Upload(ICollection<IFormFile> files, bool parse = true)
         {
             var uploads = Path.Combine(_hostEnvironment.WebRootPath, "uploads");
             foreach (var file in files)
@@ -39,16 +40,20 @@ namespace StyleguideGenerator.Controllers
                     
                     var fileName = disp.FileName.Trim('"').Replace(" ","_");
                     var gd = Guid.NewGuid().ToString("N");
-                    var g = UserName+"_"+ gd + "_";
+                    var g = UserName+"_"+ gd + "_"+fileName;
                     var fileContent = "";
                     using (var reader = new StreamReader(file.OpenReadStream()))
                     {
                         fileContent = reader.ReadToEnd();
                     }
-                    await file.SaveAsAsync(Path.Combine(uploads, g+fileName));                    
+                    await file.SaveAsAsync(Path.Combine(uploads, g));
                     if (parse)
                     {
-                        
+                        var unpfile = new UnparsedFile(fileName, fileContent, g);
+                        var t = CssParseModule.Parse(unpfile);
+                        ViewBag.lines = t.SelectorsLines;
+                        ViewBag.st = fileContent;
+                        return View("~/Views/Main/Index.cshtml");
                     }
                 }
             return View();

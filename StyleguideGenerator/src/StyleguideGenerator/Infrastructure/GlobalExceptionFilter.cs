@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Filters;
-using StyleguideGenerator.Models.Errors;
+﻿using Microsoft.AspNet.Mvc.Filters;
+using StyleguideGenerator.Models;
 using Microsoft.AspNet.Mvc.ViewFeatures;
 using Microsoft.AspNet.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNet.Mvc;
+using System;
 
 namespace StyleguideGenerator.Infrastructure
 {
+
+    /*!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!*/
+    /*!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!*/
 
     public class GlobalExceptionFilter : IExceptionFilter/*, IDisposable*/
     {
@@ -24,29 +28,31 @@ namespace StyleguideGenerator.Infrastructure
 
         public void OnException(ExceptionContext context)
         {
-            var response = new ErrorResponse()
+            var exception = new GlobalException()
             {
+                Dt = DateTime.Now,
+                UserLogin = context.HttpContext.User.Identity.Name ?? "globalex no authenticated user",
                 Message = context.Exception.Message,
                 StackTrace = context.Exception.StackTrace
             };
             var isAjax = context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax)
             {
-                context.Result = new ObjectResult(response)
+                context.Result = new ObjectResult(exception)
                 {
                     StatusCode = 500,
-                    DeclaredType = typeof(ErrorResponse)
+                    DeclaredType = typeof(GlobalException)
                 };
             }
             else
             {
                 var modelMetadataProvider = context.HttpContext.ApplicationServices.GetRequiredService<IModelMetadataProvider>();
-                var viewDataDictionary = new ViewDataDictionary<ErrorResponse>(modelMetadataProvider, new ModelStateDictionary());
-                viewDataDictionary.Model = response;
+                var viewDataDictionary = new ViewDataDictionary<GlobalException>(modelMetadataProvider, new ModelStateDictionary());
+                viewDataDictionary.Model = exception;
 
                 context.Result = new ViewResult()
                 {
-                    ViewName = "~/Views/Shared/TransferHandleErrorPage.cshtml",
+                    ViewName = "~/Views/Errors/DefaultException.cshtml",
                     ViewData = viewDataDictionary
                 };                
             }
