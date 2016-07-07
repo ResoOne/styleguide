@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using StyleguideGenerator.Models;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Linq;
+using StyleguideGenerator.Models.Data;
 
 namespace StyleguideGenerator.Modules
 {
@@ -12,26 +12,14 @@ namespace StyleguideGenerator.Modules
     /// </summary>
     public static class CssParseModule
     {
-        private static readonly char[] _unitSplitChars = new[] { ' ', '>', '+', '~' };
-        private static readonly char[] _partsSplitChars = new [] { '.', ':', '#', '[' };
-        private static readonly string _selectorSplitStr = @"(\s+(?!(\>|\+|\~))|\>|\s*\+\s*|\~)";
+        //private static readonly char[] _unitSplitChars = new[] { ' ', '>', '+', '~' };
+        private static readonly char[] PartsSplitChars = new [] { '.', ':', '#', '[' };
+        private const string SelectorSplitStr = @"(\s+(?!(\>|\+|\~))|\>|\s*\+\s*|\~)";
 
-        public static ParsedFile Parse(UnparsedFile file)
+        public static List<SelectorsLine> Parse(string text)
         {
-            var parsedFile = new ParsedFile(file);            
-            return parsedFile;
-        }
-        public static ParsedFile Parse(string name,string content)
-        {
-            var parsedFile = new ParsedFile(name);
-            parsedFile.SelectorsLines = Parse(content);
-            return parsedFile;
-        }
-
-        public static List<SelectorsLine> Parse(string content)
-        {
-            content = RemoveCommnetsAndWspace(content);            
-            var sp = content.Split(new[] { '{', '}' });
+            text = RemoveCommnetsAndWspace(text);            
+            var sp = text.Split('{', '}');
             List<SelectorsLine> filelines = new List<SelectorsLine>(sp.Length / 2 + 1);
             List<Selector> fileselectors = new List<Selector>(sp.Length / 2 + 1);
 
@@ -40,8 +28,7 @@ namespace StyleguideGenerator.Modules
             {                
                 if (i % 2 == 0)
                 {
-                    var line = new SelectorsLine();
-                    line.Position = linePosition++;
+                    var line = new SelectorsLine {Position = linePosition++};
                     var props = sp[i+1];
                     line.Prop = new Properties() { Value = props };
                     line.Str = sp[i].Trim();
@@ -65,15 +52,14 @@ namespace StyleguideGenerator.Modules
             var cindex = 0;
             while (cindex != -1)
             {
-                var si = content.IndexOf(@"/*", cindex);
+                var si = content.IndexOf(@"/*", cindex, StringComparison.Ordinal);
                 var ei = -1;
                 if (si != -1)
                 {
-                    ei = content.IndexOf(@"*/", si);
-                    if (ei != -1)
-                        sb.Append(content.Substring(cindex, si - cindex));
-                    else
-                        sb.Append(content.Substring(cindex, content.Length - cindex));
+                    ei = content.IndexOf(@"*/", si, StringComparison.Ordinal);
+                    sb.Append(ei != -1
+                        ? content.Substring(cindex, si - cindex)
+                        : content.Substring(cindex, content.Length - cindex));
                 }
                 else
                 {
@@ -95,13 +81,12 @@ namespace StyleguideGenerator.Modules
         {
             var splitresult = selectorsLineStr.Split(new[] { ',' },StringSplitOptions.RemoveEmptyEntries);
             var selectors = new List<Selector>();
-            for (var i = 0; i < splitresult.Length; i++)
+            foreach (var t in splitresult)
             {
-                var selector = repeatCheck(splitresult[i]);
+                var selector = repeatCheck(t);
                 if (selector==null)
                 {
-                    selector = new Selector();                                   
-                    selector.Str = splitresult[i].Trim();                    
+                    selector = new Selector {Str = t.Trim()};
                     selector.Units = SplitSelector(selector.Str);
                     //selector.Position = position++;
                 }
@@ -117,7 +102,7 @@ namespace StyleguideGenerator.Modules
         /// <returns>Список простых селекторов</returns>
         private static List<SelectorUnit> SplitSelector(string selectorStr)
         {           
-            string[] regresult = Regex.Split(selectorStr, _selectorSplitStr).Where(e => e.Length > 0).ToArray();            
+            string[] regresult = Regex.Split(selectorStr, SelectorSplitStr).Where(e => e.Length > 0).ToArray();            
             if (regresult.Length == 0) return null;            
             var units = new List<SelectorUnit>();
             var funit = new SelectorUnit(regresult[0]);
@@ -151,7 +136,7 @@ namespace StyleguideGenerator.Modules
             {
                 var part = new SelectorPart();
                 if (unitStr.Length > 1 && unitStr[1] == ':') index = 2;
-                index = unitStr.IndexOfAny(_partsSplitChars, index);
+                index = unitStr.IndexOfAny(PartsSplitChars, index);
                 if (index != -1)
                 {
                     var partstr = unitStr.Substring(0, index);
@@ -183,7 +168,7 @@ namespace StyleguideGenerator.Modules
             }
             else if (s.StartsWith("#"))
             {
-                return SelectorPartType.ID;
+                return SelectorPartType.Id;
             }
             else if (s.StartsWith("-"))
             {

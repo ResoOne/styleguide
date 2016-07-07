@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNet.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using StyleguideGenerator.Models;
-using Microsoft.AspNet.Mvc.ViewFeatures;
-using Microsoft.AspNet.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace StyleguideGenerator.Infrastructure
 {
@@ -46,7 +47,7 @@ namespace StyleguideGenerator.Infrastructure
             }
             else
             {
-                var modelMetadataProvider = context.HttpContext.ApplicationServices.GetRequiredService<IModelMetadataProvider>();
+                var modelMetadataProvider = new EmptyModelMetadataProvider();
                 var viewDataDictionary = new ViewDataDictionary<GlobalException>(modelMetadataProvider, new ModelStateDictionary());
                 viewDataDictionary.Model = exception;
 

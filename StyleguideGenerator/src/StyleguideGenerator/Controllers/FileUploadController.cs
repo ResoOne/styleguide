@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using StyleguideGenerator.Models;
-using StyleguideGenerator.Modules;
+using StyleguideGenerator.Models.Data;
 using SFile = System.IO.File;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,19 +35,16 @@ namespace StyleguideGenerator.Controllers
                     var disp = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                     
                     var fileName = disp.FileName.Trim('"').Replace(" ","_");
-                    var gd = Guid.NewGuid().ToString("N");
-                    var g = UserName+"_"+ gd + "_"+fileName;
                     var fileContent = "";
                     using (var reader = new StreamReader(file.OpenReadStream()))
                     {
                         fileContent = reader.ReadToEnd();
                     }
-                    await file.SaveAsAsync(Path.Combine(uploads, g));
+                    //await file.SaveAsAsync(Path.Combine(uploads, g));
                     if (parse)
                     {
-                        var unpfile = new UnparsedFile(fileName, fileContent, g);
-                        var t = CssParseModule.Parse(unpfile);
-                        ViewBag.lines = t.SelectorsLines;
+                        var unpfile = new ProjectFile(fileName, fileContent, UserName);
+                        ProjectFile.ParseSourse(unpfile);
                         ViewBag.st = fileContent;
                         return View("~/Views/Main/Index.cshtml");
                     }

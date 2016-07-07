@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using SFile = System.IO.File;
 using StyleguideGenerator.Models;
 
-using Microsoft.AspNet.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using StyleguideGenerator.Modules;
-using Microsoft.AspNet.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics;
+using StyleguideGenerator.Models.Data;
 
 namespace StyleguideGenerator.Controllers
 {
@@ -22,11 +23,10 @@ namespace StyleguideGenerator.Controllers
         {
             string filename = "sss.css";
             string path = "/Src/Styles/" + filename;
-            var g = UserName + "_" + Guid.NewGuid().ToString("N") + "_" + filename;
-            string stream = SFile.ReadAllText(_appEnvironment.ApplicationBasePath + "/Src/Styles/sss.css");
-            UnparsedFile unpfile = new UnparsedFile(filename, stream, g);            
-            var t = CssParseModule.Parse(unpfile);
-            ViewBag.lines = t.SelectorsLines;
+            string stream = SFile.ReadAllText(_hostEnvironment.ContentRootPath+ "/Src/Styles/sss.css");
+            ProjectFile unpfile = new ProjectFile(filename, stream, UserName);
+            ProjectFile.ParseSourse(unpfile);
+            ViewBag.lines = unpfile.SelectorsLines;
             //ViewBag.st = stream;
 
             //using (var connection = new SqliteConnection("" + new SqliteConnectionStringBuilder { DataSource = "SggDb.db" }))
