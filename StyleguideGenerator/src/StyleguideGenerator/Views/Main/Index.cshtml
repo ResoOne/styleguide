@@ -1,4 +1,5 @@
-﻿@using StyleguideGenerator.Models
+﻿@using System.Collections.Generic
+@using StyleguideGenerator.Models.Data
 <p>zzzzz</p>
 
 <hr />
@@ -11,22 +12,28 @@
 <div>
     @foreach (var line in ViewBag.lines as List<SelectorsLine>)
     {
+        <b><i>----------------------SelectorsLine</i></b>
         <div>
-            <p><b> @line.Str</b></p>
+            <p><b> @line.Str</b>
+            </p>
             <div>
+                <b><i>Selectors</i></b>
                 @foreach (var s in line.Selectors)
                 {
                     <p>@s.Str</p>
                     <div>
+                        <b><i>SelectorUnit</i></b>
                         @foreach (var u in s.Units)
                         {
-                            <p><i>@u.Position</i> @u.Text <i>@u.Connect</i></p>
+                            <p><i>@u.Position</i> @u.Text <i>@u.Connect</i>
+                            </p>
                             <ul>
+                                <b><i>SelectorPart</i></b>
                                 @foreach (var p in u.Parts)
                                 {
-                                    <li><i>@p.Position</i>  @p.Title <i>@p.Type</i></li>
+                                    <li><i>@p.Position</i> @p.Title <i>@p.Type</i></li>
                                 }
-                            </ul>                            
+                            </ul>
                         }
                         <div>
                             @foreach (var p in s.PropertiesSet.Values)
@@ -38,9 +45,9 @@
                         </div>
 
                     </div>
-                                     
-                }                
-            </div>            
+
+                }
+            </div>
         </div>
     }
 </div>
