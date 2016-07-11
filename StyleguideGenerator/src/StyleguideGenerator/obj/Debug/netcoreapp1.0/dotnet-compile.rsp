@@ -212,6 +212,7 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Programm.c
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Startup.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\FileUploadController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\MainController.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\ProjectController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Common\BaseController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Errors\GlobalExceptionController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Errors\StatusCodeController.cs
@@ -219,6 +220,7 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Infrastruc
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\FileModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\ProjectModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\SelectorModel.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\System\AppSettings.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\System\ExceptionModels.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\CssParseModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbBaseModule.cs
@@ -226,3 +228,7 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Db
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbFileModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbStyleTreeModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\FilesystemFileNameModule.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Converters\BaseConverter.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DbManager.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DbQueryFactory.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\ProjectDbManager.cs

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using StyleguideGenerator.Modules;
 using Microsoft.AspNetCore.Diagnostics;
 using StyleguideGenerator.Models.Data;
+using StyleguideGenerator.Modules.Database;
 
 namespace StyleguideGenerator.Controllers
 {
@@ -64,6 +65,13 @@ namespace StyleguideGenerator.Controllers
 
             ViewBag.g = list;
             return View();
+        }
+
+        public ActionResult Pr()
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            var list = mg.GetProjectList();
+            return View(list);
         }
     }
 }

@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace StyleguideGenerator.Modules.Database
 {
-    public class ProjectDbModule
+    public class DbQueryFactory
     {
-
-
     }
 }

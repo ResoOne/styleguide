@@ -11,6 +11,10 @@ namespace StyleguideGenerator.Models.Data
     public class Project
     {
         /// <summary>
+        /// ID проекта
+        /// </summary>
+        public int ID { get; set; }
+        /// <summary>
         /// Название проекта
         /// </summary>
         public string Name { get; set; }
@@ -30,6 +34,17 @@ namespace StyleguideGenerator.Models.Data
         /// Файлы проекта
         /// </summary>
         public List<ProjectFile> FileList { get; set; }
+
+        /// <summary>
+        /// Файлы проекта
+        /// </summary>
+        public int FileCount {
+            get {
+                return FileList!=null ? FileList.Count() : _fileCount;
+            }
+            set { _fileCount = value; } }
+        
+        private int _fileCount { get; set; }
 
         public void AddFile(ProjectFile file)
         {
