@@ -10,7 +10,7 @@ namespace StyleguideGenerator.Models.Data
         /// <summary>
         /// Список параметров раздела
         /// </summary>
-        private List<SectionOption> Vars { get; set; }
+        private List<SectionOption> OptionList { get; set; }
     }
     /// <summary>
     /// Параметр раздела

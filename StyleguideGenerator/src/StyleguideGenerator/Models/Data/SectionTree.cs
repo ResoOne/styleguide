@@ -7,5 +7,10 @@ namespace StyleguideGenerator.Models.Data
 {
     public class SectionTree
     {
+        public string Title { get; set; }
+
+        public List<> 
     }
+
+    public class SectionTreeEl
 }

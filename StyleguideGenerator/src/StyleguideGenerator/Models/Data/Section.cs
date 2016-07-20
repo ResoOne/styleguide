@@ -11,29 +11,16 @@ namespace StyleguideGenerator.Models.Data
 
         public string Description { get; set; }
 
+        public string HighlightedDescription { get; set; }
+
+        public string SubDescription { get; set; }
+
         public string ImportantDesc { get; set; }
 
-        public Dictionary<string,string> Vars { get; set; }
-
-        public List<SubSection> ChildList { get; set; }
-    }
-
-    public class SubSection :Section
-    {
-        public List<VarExample> VarExamples { get; set; }
-    }
-
-    public class SectionExample
-    {
+        public List<SectionOptionsGroup> OptionsGroups { get; set; }
         
-    }
+        public List<Sample> Samples { get; set; }  
 
-    public class VarExample
-    {
-        public string Value { get; set; }
-
-        public string Text { get; set; }
-
-        public string Example { get; set; }
+        public List<Section> ChildList { get; set; }
     }
 }
