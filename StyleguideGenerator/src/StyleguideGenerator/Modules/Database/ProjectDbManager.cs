@@ -9,6 +9,7 @@ namespace StyleguideGenerator.Modules.Database
 {
     public class ProjectDbManager
     {
+        //private static DbQuery 
         private string SelectProjectQuery = "Select * FROM ProjectsList";
         private string NewProjectQuery = "INSERT INTO Projects (Name, Author, Description,Created)] VALUES (@name, @author, @desc, @crdt);";
         private string EditProjectQuery = "UPDATE Projects SET Name=@name, Author=@author, Description=@desc WHERE ID=@id;";
@@ -19,10 +20,11 @@ namespace StyleguideGenerator.Modules.Database
             
         }
 
+
         public List<Project> GetProjectList()
         {
             var list = new List<Project>();
-            DbManager.ExecuteQueryWithRead(SelectProjectQuery,null,list,SelectReaderAction);
+            //DbManager.ExecuteQueryWithRead(SelectProjectQuery,null,list,SelectReaderAction);
             return list;
         }
 
@@ -52,8 +54,5 @@ namespace StyleguideGenerator.Modules.Database
         {
             
         }
-
-
-
     }
 }
