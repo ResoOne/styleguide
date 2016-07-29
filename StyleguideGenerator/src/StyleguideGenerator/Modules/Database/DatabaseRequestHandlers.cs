@@ -15,10 +15,12 @@ namespace StyleguideGenerator.Modules.Database
             var ReadList = new List<T>();
             using (var reader = command.ExecuteReader())
             {
-                ReadList.Clear();
-                while (reader.Read())
+                if (reader.HasRows)
                 {
-                    ReadList.Add(ProcessResponse(reader));
+                    while (reader.Read())
+                    {
+                        ReadList.Add(ProcessResponse(reader));
+                    }
                 }
             }
             return ReadList;
@@ -30,11 +32,11 @@ namespace StyleguideGenerator.Modules.Database
     {
         public object Request(SqliteCommand command)
         {
-            var row = new T();
+            T row = default(T);
             using (var reader = command.ExecuteReader())
             {
                 reader.Read();
-                row = ProcessResponse(reader);
+                if (reader.HasRows) row = ProcessResponse(reader);
             }
             return row;
         }

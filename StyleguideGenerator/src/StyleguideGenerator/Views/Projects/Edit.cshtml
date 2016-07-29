@@ -1,0 +1,31 @@
+﻿@using StyleguideGenerator.Models.Data;
+@model Project
+@if (Model != null)
+{
+    <h3>Edit project</h3>
+    <form asp-controller="Projects" asp-action="Edit">
+        <input type="hidden" asp-for="ID"/>
+        <table>
+            <tr>
+                <td>Название</td>
+                <td>
+                    <input type="text" asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Описание</td>
+                <td><input type="text" asp-for="Description"/></td>
+            </tr>
+            <tr>
+                <td>Название</td>
+                <td><textarea asp-for="Readme"></textarea></td>
+            </tr>
+        </table>
+        <input type="submit" value="Сохранить"/>
+    </form>
+}
+else
+{
+    <div>Такого проекта нет</div>
+}

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "716d4f3a895c6542049fb4adfc606b977be8d53f"
+    "signature": "d9b292b6a44f73256362bc2e0de536a961887022"
   },
   "compilationOptions": {
     "defines": [
@@ -33,13 +33,27 @@
           "Microsoft.Extensions.Logging.Debug": "1.0.0",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-          "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final"
+          "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
+          "BundlerMinifier.Core": "2.1.258"
         },
         "runtime": {
           "StyleguideGenerator.dll": {}
         },
         "compile": {
           "StyleguideGenerator.dll": {}
+        }
+      },
+      "BundlerMinifier.Core/2.1.258": {
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.0.0",
+          "NUglify": "1.5.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "lib/netcoreapp1.0/dotnet-bundle.dll": {}
+        },
+        "compile": {
+          "lib/netcoreapp1.0/dotnet-bundle.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/2.1.0": {
@@ -1668,6 +1682,18 @@
         },
         "compile": {
           "lib/netstandard1.0/NuGet.Versioning.dll": {}
+        }
+      },
+      "NUglify/1.5.1": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.Security.Cryptography.Algorithms": "4.2.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/NUglify.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/NUglify.dll": {}
         }
       },
       "Remotion.Linq/2.1.1": {
@@ -3514,6 +3540,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BundlerMinifier.Core/2.1.258": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dHTcSnKRM2Dvk1s2eCLU8U1WCxLlfk4y0GQlBUFaHaLt1NN1JhxJeDhhVo6jqKhHZsBaY7Cz04UYuKrKSwItZQ=="
+    },
     "Microsoft.ApplicationInsights/2.1.0": {
       "type": "package",
       "serviceable": true,
@@ -4018,6 +4049,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-Stok+SI5lWxOkTgZZM7jT4xuAZogm5+j85mKJeHSXb8o0OAbB+qDX9jkdM2wIEnjoR8R29J0nQYwk2Kl2lWFpA=="
+    },
+    "NUglify/1.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iYV/OtSs+HgyE/RilY7UvGXYec6r0OJenWlPIdX/IivedVpSSdzxvPvUIyWpiV/6ad7VjantH0/6oaOhAZbaoQ=="
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace StyleguideGenerator.Models.Data
@@ -7,13 +8,16 @@ namespace StyleguideGenerator.Models.Data
 
     public class BaseProject
     {
+
         /// <summary>
         /// ID проекта
         /// </summary>
+        [Required]
         public int ID { get; set; }
         /// <summary>
         /// Название проекта
         /// </summary>
+        [RegularExpression(@"\s+", ErrorMessage = "Имя должно быть без пробелов"), Required]
         public string Name { get; set; }
         /// <summary>
         /// Автор

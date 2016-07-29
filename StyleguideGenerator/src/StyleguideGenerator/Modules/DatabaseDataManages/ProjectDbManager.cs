@@ -41,9 +41,12 @@ namespace StyleguideGenerator.Modules.Database
             var result = QueryExecuter.Execute(transaction);
             var project = result[0] as Project;
             var files = result[1] as List<ProjectFile>;
-            foreach (var f in files)
+            if (project != null)
             {
-                project.AddFile(f);
+                foreach (var f in files)
+                {
+                    project.AddFile(f);
+                }
             }
             return project;
         }
