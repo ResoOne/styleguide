@@ -73,6 +73,41 @@ namespace StyleguideGenerator.Controllers
             var list = mg.GetProjectList();
             return View(list);
         }
+
+        public ActionResult All()
+        {
+            return new ContentResult() {Content = "1111111111111111"};
+        }
+
+        public ActionResult NewPr(string name = "non")
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            mg.NewProject(new Project() {  Name = name, Author = UserName, Description = "test project from view", Created = DateTime.Now});
+            var list = mg.GetProjectList();
+            return View("Pr",list);
+        }
+
+        public ActionResult DelPr(int id = -1,string name = "update")
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            if (id != -1)
+            {
+                mg.DeleteProject(id);
+            }
+            var list = mg.GetProjectList();
+            return View("Pr", list);
+        }
+
+        public ActionResult EditPr(int id = -1, string name = "update")
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            if (id != -1)
+            {
+                mg.EditProject(new Project() { Name = name, ID = id });
+            }
+            var list = mg.GetProjectList();
+            return View("Pr", list);
+        }
     }
 }
 

@@ -1,0 +1,22 @@
+﻿@using StyleguideGenerator.Models.Data;
+@model Project
+<div>
+    <h3>@Model.Name</h3>
+    <p>@Model.Description</p>
+    <div>
+        <span>Автор:</span>
+        <span>@Model.Author</span>
+    </div>
+    <div>
+        <span>Автор:</span>
+        <span>@Model.Created</span>
+    </div>
+    <ul>
+        @foreach (var f in Model.FileList)
+        {
+            <li>
+                <span>@f.Name (@f.Type) @f.Author </span>
+            </li>
+        }
+    </ul>
+</div>

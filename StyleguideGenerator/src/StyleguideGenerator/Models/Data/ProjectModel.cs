@@ -4,10 +4,8 @@ using System.Linq;
 
 namespace StyleguideGenerator.Models.Data
 {
-    /// <summary>
-    /// Проект
-    /// </summary>
-    public class Project
+
+    public class BaseProject
     {
         /// <summary>
         /// ID проекта
@@ -29,6 +27,16 @@ namespace StyleguideGenerator.Models.Data
         /// Дата создания
         /// </summary>
         public DateTime Created { get; set; }
+    }
+    /// <summary>
+    /// Проект
+    /// </summary>
+    public class Project : BaseProject
+    {
+        /// <summary>
+        /// Readme
+        /// </summary>
+        public string Readme { get; set; }
         /// <summary>
         /// Файлы проекта
         /// </summary>
@@ -39,11 +47,19 @@ namespace StyleguideGenerator.Models.Data
         /// </summary>
         public int FileCount {
             get {
-                return FileList!=null ? FileList.Count() : _fileCount;
+                return FileList!=null ? FileList.Count() : 0;
             }
             set { _fileCount = value; } }
         
         private int _fileCount { get; set; }
+
+
+        public Project()
+        {
+            Description = "";
+            Name = "project";
+            FileList = new List<ProjectFile>();
+        }
 
         public void AddFile(ProjectFile file)
         {
@@ -61,6 +77,14 @@ namespace StyleguideGenerator.Models.Data
         }
     }
 
+    public class ProjectView : BaseProject
+    {
+        /// <summary>
+        /// Файлы проекта
+        /// </summary>
+        public int FileCount { get; set; }
+    }
+
     public static class NonProjectFiles
     {
         public static readonly Project Project;
@@ -72,7 +96,8 @@ namespace StyleguideGenerator.Models.Data
                 Name = "No project files",
                 Author = "System",
                 Description = "Файлы без проекта",
-                FileList = new List<ProjectFile>()
+                FileList = new List<ProjectFile>(),
+                ID=0
             };
         }
     }

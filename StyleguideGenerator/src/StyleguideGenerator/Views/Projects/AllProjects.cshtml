@@ -1,0 +1,14 @@
+﻿@using StyleguideGenerator.Models.Data;
+@model List<ProjectView>
+
+@foreach (var p in Model)
+{
+    <div>
+        <p>@p.ID</p>
+        <p><a href="@Url.Action("Show", new {name = p.Name})">@p.Name</a></p>
+        <p>@p.Description</p>
+        <p>@p.Created</p>
+        <p>@p.FileCount</p>
+    </div>
+    <hr />
+}

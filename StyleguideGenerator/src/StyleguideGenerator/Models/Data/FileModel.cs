@@ -8,6 +8,7 @@ namespace StyleguideGenerator.Models.Data
     /// </summary>
     public class ProjectFile
     {
+        public int ID { get; set; }
         public string Name { get; set; }
 
         public string FilesystemName { get; set; }
@@ -18,6 +19,7 @@ namespace StyleguideGenerator.Models.Data
 
         public ProjectFileType Type { get; set; }
 
+        public int ProjectID { get; set; }
         public Project Project { get; set; }
         public List<SelectorsLine> SelectorsLines { get; set; }
 

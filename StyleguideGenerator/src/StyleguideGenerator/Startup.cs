@@ -51,9 +51,10 @@ namespace StyleguideGenerator
             
             //app.UseIISPlatformHandler(); 
             app.UseStaticFiles();
-
+            
             app.UseMvc(routes =>
             {
+                routes.MapRoute("Projects", "Projects/{action}/{name?}", new { controller = "Projects", action = "All" });
                 routes.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "Main", action = "Index" });
             });
         }

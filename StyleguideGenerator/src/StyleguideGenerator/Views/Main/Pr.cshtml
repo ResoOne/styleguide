@@ -1,15 +1,1 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
-@using StyleguideGenerator.Models.Data;
-@model List<Project>
-
-@foreach (var p in Model)
-{
-    <div>
-        <p>@p.ID</p>
-        <p>@p.Name</p>
-        <p>@p.Description</p>
-        <p>@p.Created</p>
-        <p>@p.FileCount</p>
-    </div>
-    <hr/>
-}
