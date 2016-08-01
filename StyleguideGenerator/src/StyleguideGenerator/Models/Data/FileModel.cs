@@ -31,6 +31,9 @@ namespace StyleguideGenerator.Models.Data
             NonProjectFiles.Project.AddFile(this);
             Type=ProjectFileType.None;
         }
+
+        
+
         public static bool ParseSourse(ProjectFile file)
         {
             file.SelectorsLines = CssParseModule.Parse(file.Source);

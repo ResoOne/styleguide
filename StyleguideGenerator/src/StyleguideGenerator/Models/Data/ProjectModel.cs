@@ -17,7 +17,7 @@ namespace StyleguideGenerator.Models.Data
         /// <summary>
         /// Название проекта
         /// </summary>
-        [RegularExpression(@"\s+", ErrorMessage = "Имя должно быть без пробелов"), Required]
+        [RegularExpression(@"^\S+$", ErrorMessage = "Имя должно быть без пробелов"), Required]
         public string Name { get; set; }
         /// <summary>
         /// Автор
@@ -49,14 +49,10 @@ namespace StyleguideGenerator.Models.Data
         /// <summary>
         /// Файлы проекта
         /// </summary>
-        public int FileCount {
-            get {
-                return FileList!=null ? FileList.Count() : 0;
-            }
-            set { _fileCount = value; } }
-        
-        private int _fileCount { get; set; }
-
+        public int FileCount
+        {
+            get { return FileList != null ? FileList.Count() : 0; }
+        }
 
         public Project()
         {

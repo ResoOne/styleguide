@@ -1,26 +1,56 @@
 ﻿@using StyleguideGenerator.Models.Data;
 @model Project
+<a href="@Url.Action("All")"><=== All</a>
+<hr />
 @if (Model != null)
 {
     <div>
-        <h3>@Model.Name</h3>
-        <p>@Model.Description</p>
+        <h3>Имя: @Model.Name</h3>
+        <p>Описание: @Model.Description</p>
         <div>
             <span>Автор:</span>
             <span>@Model.Author</span>
         </div>
         <div>
-            <span>Автор:</span>
+            <span>Дата создания:</span>
             <span>@Model.Created</span>
         </div>
-        <ul>
-            @foreach (var f in Model.FileList)
-            {
-                <li>
-                    <span>@f.Name (@f.Type) @f.Author </span>
-                </li>
-            }
-        </ul>
+        <div>
+            <p>README</p>
+            <div style="background-color: beige;">
+                @Html.Raw(ViewBag.ParsedMark)
+            </div>
+        </div>
+        <hr />
+        <div>Файлы: </div>
+        @if (Model.FileList.Any())
+        {
+            <table>
+                <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Тип</th>
+                    <th>Автор</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in Model.FileList)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("Show","ProjectFile",new {id=f.ID})">@f.Name</a></td>
+                            <td>@f.Type</td>
+                            <td>@f.Author</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div>Файлов нет</div>
+        }
+        <hr />
     </div>
     <div>
         <a href="@Url.Action("Edit", new {name = Model.Name})">Редактировать</a>

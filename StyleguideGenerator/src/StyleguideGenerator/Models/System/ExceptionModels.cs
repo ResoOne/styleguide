@@ -2,10 +2,18 @@
 
 namespace StyleguideGenerator.Models
 {
+    public abstract class BaseException
+    {
+        /// <summary>
+        /// Сообщение
+        /// </summary>
+        public string Message { get; set; }
+    }
+
     /// <summary>
     /// Объект ошибки приложения
     /// </summary>
-    public class GlobalException
+    public class GlobalException: BaseException
     {
         /// <summary>
         /// Время
@@ -15,10 +23,7 @@ namespace StyleguideGenerator.Models
         /// Логин пользователя
         /// </summary>
         public string UserLogin { get; set; }
-        /// <summary>
-        /// Сообщение
-        /// </summary>
-        public string Message { get; set; }
+        
         /// <summary>
         /// Вызовы
         /// </summary>
@@ -28,15 +33,15 @@ namespace StyleguideGenerator.Models
     /// <summary>
     /// Ответ сервера с ошибкой
     /// </summary>
-    public class ErrorResponse
+    public class ErrorResponse : BaseException
     {
-        /// <summary>
-        /// Сообщение
-        /// </summary>
-        public string Message { get; set; }
         /// <summary>
         /// Вызовы
         /// </summary>
         public string StackTrace { get; set; }
+    }
+
+    public class CommonAppEx : BaseException
+    {
     }
 }

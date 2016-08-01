@@ -69,7 +69,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult Pr()
         {
-            ProjectDbManager mg = new ProjectDbManager();
+            ProjectDManager mg = new ProjectDManager();
             var list = mg.GetProjectList();
             return View(list);
         }
@@ -81,7 +81,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult NewPr(string name = "non")
         {
-            ProjectDbManager mg = new ProjectDbManager();
+            ProjectDManager mg = new ProjectDManager();
             mg.NewProject(new Project() {  Name = name, Author = UserName, Description = "test project from view", Created = DateTime.Now});
             var list = mg.GetProjectList();
             return View("Pr",list);
@@ -89,7 +89,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult DelPr(int id = -1,string name = "update")
         {
-            ProjectDbManager mg = new ProjectDbManager();
+            ProjectDManager mg = new ProjectDManager();
             if (id != -1)
             {
                 mg.DeleteProject(id);
@@ -100,7 +100,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult EditPr(int id = -1, string name = "update")
         {
-            ProjectDbManager mg = new ProjectDbManager();
+            ProjectDManager mg = new ProjectDManager();
             if (id != -1)
             {
                 mg.EditProject(new Project() { Name = name, ID = id });

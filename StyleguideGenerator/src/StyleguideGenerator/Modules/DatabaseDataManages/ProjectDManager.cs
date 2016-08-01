@@ -4,7 +4,7 @@ using StyleguideGenerator.Models.Database;
 
 namespace StyleguideGenerator.Modules.Database
 {
-    public class ProjectDbManager
+    public class ProjectDManager
     {
         public List<ProjectView> GetProjectList()
         {
@@ -22,7 +22,7 @@ namespace StyleguideGenerator.Modules.Database
         }
         public void EditProject(Project project)
         {
-            ProjectsDbQuerys.EditProject.Parameters.SetParamsValues(project.ID,project.Name,project.Description);
+            ProjectsDbQuerys.EditProject.Parameters.SetParamsValues(project.ID,project.Name,project.Description,project.Readme);
             var transaction = new DbTransaction(ProjectsDbQuerys.EditProject);
             var result = QueryExecuter.Execute(transaction);
         }

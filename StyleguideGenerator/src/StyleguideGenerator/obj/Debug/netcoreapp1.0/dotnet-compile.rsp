@@ -14,6 +14,7 @@
 --informational-version:1.0.0
 --target-framework:.NETCoreApp,Version=v1.0
 --reference:C:\Users\soredin-a\.nuget\packages\BundlerMinifier.Core\2.1.258\lib\netcoreapp1.0\dotnet-bundle.dll
+--reference:C:\Users\soredin-a\.nuget\packages\CommonMark.NET\0.13.4\lib\netstandard1.0\CommonMark.dll
 --reference:C:\Users\soredin-a\.nuget\packages\Microsoft.ApplicationInsights\2.1.0\lib\dotnet5.4\Microsoft.ApplicationInsights.dll
 --reference:C:\Users\soredin-a\.nuget\packages\Microsoft.ApplicationInsights.AspNetCore\1.0.0\lib\netstandard1.6\Microsoft.ApplicationInsights.AspNetCore.dll
 --reference:C:\Users\soredin-a\.nuget\packages\Microsoft.AspNet.Http.Abstractions\1.0.0-rc1-final\lib\dotnet5.4\Microsoft.AspNet.Http.Abstractions.dll
@@ -215,7 +216,9 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Startup.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\FileUploadController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\MainController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\ProjectController.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\ProjectFileController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Common\BaseController.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Common\ExceptionController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Errors\GlobalExceptionController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Errors\StatusCodeController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Infrastructure\GlobalExceptionFilter.cs
@@ -232,13 +235,11 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Dat
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\System\AppSettings.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\System\ExceptionModels.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\CssParseModule.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbBaseModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbCssFileModule.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbFileModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DbStyleTreeModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\FilesystemFileNameModule.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DatabaseQueryExecuter.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DatabaseRequestHandlers.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DatabaseSpecFormats.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\Test.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectDbManager.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectDManager.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectFileDManager.cs

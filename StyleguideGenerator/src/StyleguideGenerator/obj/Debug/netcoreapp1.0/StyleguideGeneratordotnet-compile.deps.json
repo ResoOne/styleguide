@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0/",
-    "signature": "08bb90cc8405cb5bdcac7f8cbfdf569746efe9c0"
+    "signature": "8d22cd0f31f042f4bf121021f1a79d6515719459"
   },
   "compilationOptions": {
     "defines": [
@@ -34,7 +34,8 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-          "BundlerMinifier.Core": "2.1.258"
+          "BundlerMinifier.Core": "2.1.258",
+          "CommonMark.NET": "0.13.4"
         },
         "compile": {
           "StyleguideGenerator.dll": {}
@@ -48,6 +49,11 @@
         },
         "compile": {
           "lib/netcoreapp1.0/dotnet-bundle.dll": {}
+        }
+      },
+      "CommonMark.NET/0.13.4": {
+        "compile": {
+          "lib/netstandard1.0/CommonMark.dll": {}
         }
       },
       "Libuv/1.9.0": {
@@ -2854,7 +2860,8 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-          "BundlerMinifier.Core": "2.1.258"
+          "BundlerMinifier.Core": "2.1.258",
+          "CommonMark.NET": "0.13.4"
         },
         "runtime": {
           "StyleguideGenerator.dll": {}
@@ -2868,6 +2875,11 @@
         },
         "runtime": {
           "lib/netcoreapp1.0/dotnet-bundle.dll": {}
+        }
+      },
+      "CommonMark.NET/0.13.4": {
+        "runtime": {
+          "lib/netstandard1.0/CommonMark.dll": {}
         }
       },
       "Libuv/1.9.0": {
@@ -5565,6 +5577,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-dHTcSnKRM2Dvk1s2eCLU8U1WCxLlfk4y0GQlBUFaHaLt1NN1JhxJeDhhVo6jqKhHZsBaY7Cz04UYuKrKSwItZQ=="
+    },
+    "CommonMark.NET/0.13.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0vk3RiBl6uHdWSvbT1HWQndLa1sbforlEaq/w6OPepCk8s/fUbHI8KooPml1XqZBvQYzkcU/Gxx4dkoOUmy/AA=="
     },
     "Libuv/1.9.0": {
       "type": "package",

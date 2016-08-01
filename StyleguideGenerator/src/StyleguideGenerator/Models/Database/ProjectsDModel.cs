@@ -14,14 +14,14 @@ namespace StyleguideGenerator.Models.Database
         };
         public static DbQuery NewProject = new DbQuery()
         {
-            QueryText = "INSERT INTO Projects (Name, Author, Description,Created) VALUES (@name, @author, @desc, @crdt);",
-            Parameters = new DbQueryParameters("@name", "@author", "@desc", "@crdt"),
+            QueryText = "INSERT INTO Projects (Name, Author, Description,Created,Readme) VALUES (@name, @author, @desc, @crdt,@readme);",
+            Parameters = new DbQueryParameters("@name", "@author", "@desc", "@crdt", "@readme"),
             Handler = typeof(RequestHandlerWithout)
         };
         public static DbQuery EditProject = new DbQuery()
         {
-            QueryText = "UPDATE Projects SET Name=@name, Description=@desc WHERE ID=@id;",
-            Parameters = new DbQueryParameters("@id", "@name", "@desc"),
+            QueryText = "UPDATE Projects SET Name=@name, Description=@desc,Readme=@readme WHERE ID=@id;",
+            Parameters = new DbQueryParameters("@id", "@name", "@desc", "@readme"),
             Handler = typeof(RequestHandlerWithout)
         };
         public static DbQuery DeleteProject = new DbQuery()

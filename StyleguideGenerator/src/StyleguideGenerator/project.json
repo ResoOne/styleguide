@@ -25,7 +25,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
-    "BundlerMinifier.Core": "2.1.258"  },
+    "BundlerMinifier.Core": "2.1.258",
+    "CommonMark.NET": "0.13.4" },
 
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final",

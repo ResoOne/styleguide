@@ -7,7 +7,6 @@ namespace StyleguideGenerator.Modules.Database
     {
         object Request(SqliteCommand command);
     }
-
     public abstract class RequestHandlerRead<T> : IBaseDbRequestHandler
     {
         public object Request(SqliteCommand command)
@@ -25,14 +24,13 @@ namespace StyleguideGenerator.Modules.Database
             }
             return ReadList;
         }
-
         public abstract T ProcessResponse(SqliteDataReader reader);
     }
-    public abstract class RequestHandlerOneRead<T> : IBaseDbRequestHandler where T : new()
+    public abstract class RequestHandlerOneRead<T> : IBaseDbRequestHandler where T : class
     {
         public object Request(SqliteCommand command)
         {
-            T row = default(T);
+            T row = null;
             using (var reader = command.ExecuteReader())
             {
                 reader.Read();
@@ -43,7 +41,6 @@ namespace StyleguideGenerator.Modules.Database
 
         public abstract T ProcessResponse(SqliteDataReader reader);
     }
-
     public class RequestHandlerScalar : IBaseDbRequestHandler
     {
         public object Request(SqliteCommand command)
@@ -51,7 +48,6 @@ namespace StyleguideGenerator.Modules.Database
             return command.ExecuteScalar();
         }
     }
-
     public class RequestHandlerWithout : IBaseDbRequestHandler
     {
         public object Request(SqliteCommand command)

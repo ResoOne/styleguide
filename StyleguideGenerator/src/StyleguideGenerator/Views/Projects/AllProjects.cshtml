@@ -4,11 +4,11 @@
 @foreach (var p in Model)
 {
     <div>
-        <p>@p.ID</p>
-        <p><a href="@Url.Action("Show", new {name = p.Name})">@p.Name</a></p>
-        <p>@p.Description</p>
-        <p>@p.Created</p>
-        <p>@p.FileCount</p>
+        <p>ID: @p.ID</p>
+        <p>Название: <a href="@Url.Action("Show", new {name = p.Name})">@p.Name</a></p>
+        <p>Описание: @p.Description</p>
+        <p>Дата создания: @p.Created</p>
+        <p>Кол-во файлов: @p.FileCount</p>
     </div>
     <hr />
 }
