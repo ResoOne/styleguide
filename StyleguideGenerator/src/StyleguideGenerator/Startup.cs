@@ -49,6 +49,7 @@ namespace StyleguideGenerator
             }
             app.UseStatusCodePagesWithReExecute("/error/{0}");
             
+            
             //app.UseIISPlatformHandler(); 
             app.UseStaticFiles();
             
@@ -57,6 +58,7 @@ namespace StyleguideGenerator
                 routes.MapRoute("Projects", "Projects/{action}/{name?}", new { controller = "Projects", action = "All" });
                 routes.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "Main", action = "Index" });
             });
+
         }
 
         private void ConfigureMvc(IServiceCollection services/*, ILoggerFactory logger*/)

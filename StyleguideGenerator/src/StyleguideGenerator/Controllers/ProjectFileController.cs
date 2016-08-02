@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using StyleguideGenerator.Models;
-using StyleguideGenerator.Models.Data;
-using StyleguideGenerator.Modules.Database;
+using StyleguideGenerator.Models.System;
 using StyleguideGenerator.Modules.DatabaseDataManages;
 
 namespace StyleguideGenerator.Controllers
@@ -15,10 +13,10 @@ namespace StyleguideGenerator.Controllers
 
         public IActionResult Show(int id = -1)
         {
-            if (id == -1) return View("Common/CommonError.cshtml", new CommonAppEx() { Message = "Нет файла" });
+            if (id == -1) throw new EmptyParameterValueException();
             ProjectFileDManager mg = new ProjectFileDManager();
             var file = mg.GetProjectFileById(id);
-            if(file==null) return View("Common/CommonError.cshtml", new CommonAppEx() { Message = "Нет файла" });
+            if (file == null) throw new EmptyObjectFromDatabase();
             return View(file);
         }
     }

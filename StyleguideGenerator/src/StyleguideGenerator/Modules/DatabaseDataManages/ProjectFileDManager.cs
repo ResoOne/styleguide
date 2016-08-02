@@ -12,8 +12,8 @@ namespace StyleguideGenerator.Modules.DatabaseDataManages
     {
         public ProjectFile GetProjectFileById(int id)
         {
-            ProjectFilesQuerys.SelectFileById.Parameters.SetParamsValues(id);
-            var transaction = new DbTransaction(ProjectFilesQuerys.SelectFileById);
+            ProjectFileQuerys.SelectFileById.Parameters.SetParamsValues(id);
+            var transaction = new DbTransaction(ProjectFileQuerys.SelectFileById);
             var result = QueryExecuter.Execute(transaction);
             var p = result[0] as ProjectFile;
             return p;

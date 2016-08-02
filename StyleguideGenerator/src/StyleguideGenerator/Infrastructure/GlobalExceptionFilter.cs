@@ -2,10 +2,8 @@
 using StyleguideGenerator.Models;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace StyleguideGenerator.Infrastructure
 {
@@ -13,8 +11,8 @@ namespace StyleguideGenerator.Infrastructure
     /*!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!*/
     /*!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!!!! NO USE !!!*/
 
-    public class GlobalExceptionFilter : IExceptionFilter/*, IDisposable*/
-    {
+    //public class GlobalExceptionFilter : IExceptionFilter/*, IDisposable*/
+    //{
         //private readonly ILogger _logger;
 
         //public GlobalExceptionFilter(ILoggerFactory logger)
@@ -27,39 +25,39 @@ namespace StyleguideGenerator.Infrastructure
         //    this._logger = logger.CreateLogger("Global Exception Filter");
         //}
 
-        public void OnException(ExceptionContext context)
-        {
-            var exception = new GlobalException()
-            {
-                Dt = DateTime.Now,
-                UserLogin = context.HttpContext.User.Identity.Name ?? "globalex no authenticated user",
-                Message = context.Exception.Message,
-                StackTrace = context.Exception.StackTrace
-            };
-            var isAjax = context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
-            if (isAjax)
-            {
-                context.Result = new ObjectResult(exception)
-                {
-                    StatusCode = 500,
-                    DeclaredType = typeof(GlobalException)
-                };
-            }
-            else
-            {
-                var modelMetadataProvider = new EmptyModelMetadataProvider();
-                var viewDataDictionary = new ViewDataDictionary<GlobalException>(modelMetadataProvider, new ModelStateDictionary());
-                viewDataDictionary.Model = exception;
+        //public void OnException(ExceptionContext context)
+        //{
+        //    var exception = new GlobalException()
+        //    {
+        //        Dt = DateTime.Now,
+        //        UserLogin = context.HttpContext.User.Identity.Name ?? "globalex no authenticated user",
+        //        //Message = context.Exception.Message,
+        //        StackTrace = context.Exception.StackTrace
+        //    };
+        //    var isAjax = context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+        //    if (isAjax)
+        //    {
+        //        context.Result = new ObjectResult(exception)
+        //        {
+        //            StatusCode = 500,
+        //            DeclaredType = typeof(GlobalException)
+        //        };
+        //    }
+        //    else
+        //    {
+        //        var modelMetadataProvider = new EmptyModelMetadataProvider();
+        //        var viewDataDictionary = new ViewDataDictionary<GlobalException>(modelMetadataProvider, new ModelStateDictionary());
+        //        viewDataDictionary.Model = exception;
 
-                context.Result = new ViewResult()
-                {
-                    ViewName = "~/Views/Errors/DefaultException.cshtml",
-                    ViewData = viewDataDictionary
-                };                
-            }
-            //this._logger.LogError("GlobalExceptionFilter", context.Exception);
-        }
-    }
+        //        context.Result = new ViewResult()
+        //        {
+        //            ViewName = "~/Views/Errors/DefaultException.cshtml",
+        //            ViewData = viewDataDictionary
+        //        };                
+        //    }
+        //    //this._logger.LogError("GlobalExceptionFilter", context.Exception);
+        //}
+    //}
 }
 
 

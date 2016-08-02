@@ -1,20 +1,16 @@
 ﻿using System;
 
-namespace StyleguideGenerator.Models
+namespace StyleguideGenerator.Models.System
 {
-    public abstract class BaseException
-    {
-        /// <summary>
-        /// Сообщение
-        /// </summary>
-        public string Message { get; set; }
-    }
-
     /// <summary>
     /// Объект ошибки приложения
     /// </summary>
-    public class GlobalException: BaseException
+    public class GlobalException: Exception
     {
+        /// <summary>
+        /// Заголовок
+        /// </summary>
+        public string Title { get; set; }
         /// <summary>
         /// Время
         /// </summary>
@@ -23,25 +19,62 @@ namespace StyleguideGenerator.Models
         /// Логин пользователя
         /// </summary>
         public string UserLogin { get; set; }
-        
-        /// <summary>
-        /// Вызовы
-        /// </summary>
-        public string StackTrace { get; set; }
+
+        public GlobalException(string m,string t) : base(m)
+        {
+            Title = t;
+        }
+        public GlobalException(string m) : base(m)
+        {
+            Title = "Application Exception";
+        }
     }
 
-    /// <summary>
-    /// Ответ сервера с ошибкой
-    /// </summary>
-    public class ErrorResponse : BaseException
-    {
-        /// <summary>
-        /// Вызовы
-        /// </summary>
-        public string StackTrace { get; set; }
-    }
 
-    public class CommonAppEx : BaseException
+    public class EmptyParameterValueException : GlobalException
     {
+        public EmptyParameterValueException(string m, string t) : base(m, t)
+        {
+
+        }
+        public EmptyParameterValueException(string m) : base(m, "Empty Parameter Value Exception")
+        {
+
+        }
+
+        public EmptyParameterValueException() : base("Не задан параметр", "Incorrect Parameter Value Exception")
+        {
+
+        }
+    }
+    public class IncorrectParameterValueException : GlobalException
+    {
+        public IncorrectParameterValueException(string m,string t):base(m,t)
+        {
+            
+        }
+        public IncorrectParameterValueException(string m) : base(m, "Incorrect Parameter Value Exception")
+        {
+
+        }
+        public IncorrectParameterValueException() : base("Не правильный параметр", "Incorrect Parameter Value Exception")
+        {
+
+        }
+    }
+    public class EmptyObjectFromDatabase : GlobalException
+    {
+        public EmptyObjectFromDatabase(string m, string t):base(m,t)
+        {
+
+        }
+        public EmptyObjectFromDatabase(string m) : base(m, "Empty object exception")
+        {
+
+        }
+        public EmptyObjectFromDatabase() : base("Нет объекта в базе данных", "Empty object exception")
+        {
+
+        }
     }
 }

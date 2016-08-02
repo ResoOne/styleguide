@@ -5,10 +5,11 @@ using System.Linq;
 
 namespace StyleguideGenerator.Models.Data
 {
-
+    /// <summary>
+    /// Базовая модель проекта
+    /// </summary>
     public class BaseProject
     {
-
         /// <summary>
         /// ID проекта
         /// </summary>
@@ -76,7 +77,9 @@ namespace StyleguideGenerator.Models.Data
             file.Project = NonProjectFiles.Project;
         }
     }
-
+    /// <summary>
+    /// Модель проекта для списка
+    /// </summary>
     public class ProjectView : BaseProject
     {
         /// <summary>
@@ -85,6 +88,9 @@ namespace StyleguideGenerator.Models.Data
         public int FileCount { get; set; }
     }
 
+    /// <summary>
+    /// Для файлов без проектов
+    /// </summary>
     public static class NonProjectFiles
     {
         public static readonly Project Project;

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
-using StyleguideGenerator.Models;
+using StyleguideGenerator.Models.System;
 
 namespace StyleguideGenerator.Controllers.Errors
 {
@@ -14,27 +14,38 @@ namespace StyleguideGenerator.Controllers.Errors
         [Route("error")]
         public IActionResult Index()
         {
-            var exception = new GlobalException();
-            var feature = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            exception.Dt = DateTime.Now;
-            exception.UserLogin = HttpContext.User.Identity.Name ?? "defaultex no authenticated user";
-            exception.Message = feature.Error.Message;
-            exception.StackTrace = feature.Error.StackTrace;
-
+            bool transfer = false;
+            var serverExeption = HttpContext.Features.Get<IExceptionHandlerFeature>().Error as GlobalException;
+            var exceptionType = serverExeption.GetType();
+            if (TransferExceptions.Contains(serverExeption.GetType())) transfer = true;
+            if (!transfer)
+            {
+                serverExeption.Dt = DateTime.Now;
+                serverExeption.UserLogin = HttpContext.User.Identity.Name ?? "defaultex no authenticated user";
+            }
             var isAjax = HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
             if (isAjax)
             {
-                return new ObjectResult(exception)
+                return new ObjectResult(serverExeption)
                 {
                     StatusCode = 500,
-                    DeclaredType = typeof(GlobalException)
+                    DeclaredType = serverExeption.GetType()
                 };
             }
             else
             {
-                ViewData.Model = exception;
-                return View("~/Views/Errors/DefaultException.cshtml");
+                ViewData.Model = serverExeption;
+                if(transfer) return View("~/Views/Errors/TransferException.cshtml");
+                else return View("~/Views/Errors/DefaultException.cshtml");
             }            
         }
+
+        private static readonly List<Type> TransferExceptions = new List<Type>()
+        {
+            typeof(IncorrectParameterValueException),
+            typeof(EmptyParameterValueException)
+        };
     }
+
+    
 }

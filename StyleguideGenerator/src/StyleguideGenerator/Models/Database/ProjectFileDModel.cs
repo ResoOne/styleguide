@@ -1,17 +1,16 @@
-﻿using System;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using StyleguideGenerator.Models.Data;
 using StyleguideGenerator.Modules.Database;
 
 namespace StyleguideGenerator.Models.Database
 {
-    public static class ProjectFilesQuerys
+    public static class ProjectFileQuerys
     {
         public static DbQuery SelectFilesByProjectName = new DbQuery()
         {
             QueryText = "Select* FROM ProjectFiles WHERE ProjectId = (SELECT ID FROM Projects WHERE Name LIKE @name)",
             Parameters = new DbQueryParameters("@name"),
-            Handler = typeof(ProjectFilesListDbHandler)
+            Handler = typeof(ProjectFileListDbHandler)
         };
 
         public static DbQuery SelectFileById = new DbQuery()
@@ -24,7 +23,7 @@ namespace StyleguideGenerator.Models.Database
             Handler = typeof (ProjectFileDbHandler)
         };
     }
-    public class ProjectFilesListDbHandler : RequestHandlerRead<ProjectFile>
+    public class ProjectFileListDbHandler : RequestHandlerRead<ProjectFile>
     {
         public override ProjectFile ProcessResponse(SqliteDataReader reader)
         {

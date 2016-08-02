@@ -5,12 +5,12 @@ using StyleguideGenerator.Modules.Database;
 
 namespace StyleguideGenerator.Models.Database
 {
-    public static class ProjectsDbQuerys
+    public static class ProjectDbQuerys
     {
         public static DbQuery SelectProject = new DbQuery()
         {
             QueryText = "Select * FROM ProjectsList",
-            Handler = typeof(ProjectsListDbHandler)
+            Handler = typeof(ProjectListDbHandler)
         };
         public static DbQuery NewProject = new DbQuery()
         {
@@ -46,7 +46,7 @@ namespace StyleguideGenerator.Models.Database
         };
 
     }
-    public class ProjectsListDbHandler : RequestHandlerRead<ProjectView>
+    public class ProjectListDbHandler : RequestHandlerRead<ProjectView>
     {
         public override ProjectView ProcessResponse(SqliteDataReader reader)
         {

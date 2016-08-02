@@ -9,35 +9,35 @@ namespace StyleguideGenerator.Modules.Database
         public List<ProjectView> GetProjectList()
         {
             var list = new List<ProjectView>();
-            var transaction = new DbTransaction(ProjectsDbQuerys.SelectProject);
+            var transaction = new DbTransaction(ProjectDbQuerys.SelectProject);
             var result = QueryExecuter.Execute(transaction);
             list = result[0] as List<ProjectView>;
             return list;
         }
         public void NewProject(Project project)
         {
-            ProjectsDbQuerys.NewProject.Parameters.SetParamsValues(project.Name, project.Author, project.Description, DatabaseSpecFormats.FormatToDatetime(project.Created));
-            var transaction = new DbTransaction(ProjectsDbQuerys.NewProject);
+            ProjectDbQuerys.NewProject.Parameters.SetParamsValues(project.Name, project.Author, project.Description, DatabaseSpecFormats.FormatToDatetime(project.Created));
+            var transaction = new DbTransaction(ProjectDbQuerys.NewProject);
             var result = QueryExecuter.Execute(transaction);
         }
         public void EditProject(Project project)
         {
-            ProjectsDbQuerys.EditProject.Parameters.SetParamsValues(project.ID,project.Name,project.Description,project.Readme);
-            var transaction = new DbTransaction(ProjectsDbQuerys.EditProject);
+            ProjectDbQuerys.EditProject.Parameters.SetParamsValues(project.ID,project.Name,project.Description,project.Readme);
+            var transaction = new DbTransaction(ProjectDbQuerys.EditProject);
             var result = QueryExecuter.Execute(transaction);
         }
         public void DeleteProject(int id)
         {
-            ProjectsDbQuerys.DeleteProject.Parameters.SetParamsValues(id);
-            var transaction = new DbTransaction(ProjectsDbQuerys.DeleteProject);
+            ProjectDbQuerys.DeleteProject.Parameters.SetParamsValues(id);
+            var transaction = new DbTransaction(ProjectDbQuerys.DeleteProject);
             var result = QueryExecuter.Execute(transaction);
         }
 
         public Project GetProjectByName(string name)
         {
-            ProjectsDbQuerys.SelectProjectByName.Parameters.SetParamsValues(name);
-            ProjectFilesQuerys.SelectFilesByProjectName.Parameters.SetParamsValues(name);
-            var transaction = new DbTransaction(ProjectsDbQuerys.SelectProjectByName, ProjectFilesQuerys.SelectFilesByProjectName);
+            ProjectDbQuerys.SelectProjectByName.Parameters.SetParamsValues(name);
+            ProjectFileQuerys.SelectFilesByProjectName.Parameters.SetParamsValues(name);
+            var transaction = new DbTransaction(ProjectDbQuerys.SelectProjectByName, ProjectFileQuerys.SelectFilesByProjectName);
             var result = QueryExecuter.Execute(transaction);
             var project = result[0] as Project;
             var files = result[1] as List<ProjectFile>;

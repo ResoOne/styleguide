@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using StyleguideGenerator.Models;
 using StyleguideGenerator.Models.Data;
 using StyleguideGenerator.Modules.Database;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -45,6 +46,7 @@ namespace StyleguideGenerator.Controllers
         [HttpPost]
         public IActionResult Edit(Project project)
         {
+            throw new System.Exception("1111");
             if (!ModelState.IsValid) return View(project);
             try
             {
