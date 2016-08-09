@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System;
+using Microsoft.Data.Sqlite;
 using StyleguideGenerator.Models.Data;
 using StyleguideGenerator.Modules.Database;
 
@@ -8,14 +9,14 @@ namespace StyleguideGenerator.Models.Database
     {
         public static DbQuery SelectFilesByProjectName = new DbQuery()
         {
-            QueryText = "Select* FROM ProjectFiles WHERE ProjectId = (SELECT ID FROM Projects WHERE Name LIKE @name)",
+            QueryText = "Select * FROM ProjectFiles WHERE ProjectId = (SELECT ID FROM Projects WHERE Name LIKE @name)",
             Parameters = new DbQueryParameters("@name"),
             Handler = typeof(ProjectFileListDbHandler)
         };
 
         public static DbQuery SelectFileById = new DbQuery()
         {
-            QueryText = @"Select f.ID,f.Name,f.FsName,f.Type,f.Author,f.Created,f.Sourse,p.Name as pname,p.ID as pId FROM ProjectFiles as f
+            QueryText = @"Select f.ID,f.Name,f.FsName,f.Type,f.Author,f.Created,f.Sourse,p.Name as ProjectName,p.ID as ProjectId FROM ProjectFiles as f
                             LEFT JOIN Projects as p
                             ON p.ID = f.ProjectId
                             WHERE f.Id = @id",
@@ -27,16 +28,15 @@ namespace StyleguideGenerator.Models.Database
     {
         public override ProjectFile ProcessResponse(SqliteDataReader reader)
         {
-            var ID = int.Parse(reader["ID"].ToString());
             var name = reader["Name"].ToString();
-            var author = reader["Author"].ToString();
-            var sourse = reader["Sourse"].ToString();
-            var fsname = reader["FsName"].ToString();
-            var file = new ProjectFile(name, sourse, fsname);
-            file.ID = ID;
-            file.Author = author;
+            var created = DatabaseSpecFormats.FormatStringToDt(reader["Created"].ToString());
+            var file = new ProjectFile(name, created);
+            file.ID = int.Parse(reader["ID"].ToString());
+            file.Author = reader["Author"].ToString();
             file.Type = (ProjectFileType)int.Parse(reader["Type"].ToString());
-            file.ProjectID = reader.IsDBNull(7)? int.Parse(reader["ProjectID"].ToString()) : 0;
+            file.FilesystemName = reader["FsName"].ToString();
+            file.Source = reader["Sourse"].ToString();
+            file.ProjectID = int.Parse(reader["ProjectId"].ToString());
             return file;
         }
     }
@@ -45,20 +45,17 @@ namespace StyleguideGenerator.Models.Database
     {
         public override ProjectFile ProcessResponse(SqliteDataReader reader)
         {
-            var ID = int.Parse(reader["ID"].ToString());
             var name = reader["Name"].ToString();
-            var author = reader["Author"].ToString();
-            var sourse = reader["Sourse"].ToString();
-            var fsname = reader["FsName"].ToString();
-            var projname = reader["pname"].ToString();
-            var projid = int.Parse(reader["pId"].ToString());
-            var file = new ProjectFile(name, sourse, fsname);
-            file.ID = ID;
-            file.Author = author;
+            var created = DatabaseSpecFormats.FormatStringToDt(reader["Created"].ToString());
+            var file = new ProjectFile(name, created);
+            file.ID = int.Parse(reader["ID"].ToString());
+            file.Author = reader["Author"].ToString();
             file.Type = (ProjectFileType)int.Parse(reader["Type"].ToString());
-            file.ProjectID = reader.IsDBNull(7) ? int.Parse(reader["ProjectID"].ToString()) : 0;
-            var proj = new Project() {ID = projid, Name = projname};
-            proj.AddFile(file);
+            file.FilesystemName = reader["FsName"].ToString();
+            file.Source = reader["Sourse"].ToString();
+            var projectID = reader.IsDBNull(7) ? int.Parse(reader["ProjectId"].ToString()) : (int)DbNoSelect.Project;
+            var projectName = reader["ProjectName"].ToString();
+            file.Project = new Project() { ID = projectID, Name = projectName };
             return file;
         }
     }

@@ -15,13 +15,15 @@ namespace StyleguideGenerator.Controllers
     {
         protected readonly ApplicationEnvironment _appEnvironment;
         protected readonly IHostingEnvironment _hostEnvironment;
-        protected string UserName;     
+        protected string UserName;
+        protected List<string> RequestErrors;
 
         public BaseController(IHostingEnvironment hostEnvironment)
         {
             _appEnvironment = PlatformServices.Default.Application;
             _hostEnvironment = hostEnvironment;
-            UserName = User?.Identity?.Name ?? "no_autorize_user";            
+            UserName = User?.Identity?.Name ?? "no_autorize_user";
+            RequestErrors = new List<string>();
         }
         
     }

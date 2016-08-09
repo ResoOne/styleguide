@@ -25,8 +25,8 @@ namespace StyleguideGenerator.Controllers
             string filename = "sss.css";
             string path = "/Src/Styles/" + filename;
             string stream = SFile.ReadAllText(_hostEnvironment.ContentRootPath+ "/Src/Styles/sss.css");
-            ProjectFile unpfile = new ProjectFile(filename, stream, UserName);
-            ProjectFile.ParseSourse(unpfile);
+            ProjectFile unpfile = new ProjectFile(filename,DateTime.Now);
+            unpfile.SelectorsLines = CssParseModule.Parse(stream);
             ViewBag.lines = unpfile.SelectorsLines;
             //ViewBag.st = stream;
 

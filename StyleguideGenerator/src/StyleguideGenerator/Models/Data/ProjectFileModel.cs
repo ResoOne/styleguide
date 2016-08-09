@@ -1,44 +1,51 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StyleguideGenerator.Modules;
 
 namespace StyleguideGenerator.Models.Data
 {
-    /// <summary>
-    /// Файл в проекте
-    /// </summary>
-    public class ProjectFile
+
+    public class BaseProjectFile
     {
         public int ID { get; set; }
         public string Name { get; set; }
-
+        public string Author { get; set; }
+        public ProjectFileType Type { get; set; }
+        public int ProjectID { get; set; }
+        public DateTime Created { get; set; }
+    }
+    /// <summary>
+    /// Файл в проекте
+    /// </summary>
+    public class ProjectFile : BaseProjectFile
+    {
         public string FilesystemName { get; set; }
 
         public string Source { get; set; }
-
-        public string Author { get; set; }
-
-        public ProjectFileType Type { get; set; }
-
-        public int ProjectID { get; set; }
         public Project Project { get; set; }
         public List<SelectorsLine> SelectorsLines { get; set; }
 
-        public ProjectFile(string name, string source, string fsname)
+        public ProjectFile(string name,DateTime created)
         {
             Name = name;
-            Source = source;
-            FilesystemName = fsname;
-            NonProjectFiles.Project.AddFile(this);
+            Source = null;
+            FilesystemName = null;
+            Project = NonProjectFiles.Project;
             Type=ProjectFileType.None;
+            Created = created;
         }
-
         
+    }
 
-        public static bool ParseSourse(ProjectFile file)
-        {
-            file.SelectorsLines = CssParseModule.Parse(file.Source);
-            return true;
-        }
+    public class ClientProjectFile
+    {
+        public string Source { get; set; }
+
+        public string Name { get; set; }
+
+        public ProjectFileType Type { get; set; }
+
+        public int ProjectId { get; set; }
     }
 
     public enum ProjectFileType

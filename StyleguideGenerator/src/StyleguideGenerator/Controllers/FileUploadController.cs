@@ -41,13 +41,14 @@ namespace StyleguideGenerator.Controllers
                         fileContent = reader.ReadToEnd();
                     }
                     //await file.SaveAsAsync(Path.Combine(uploads, g));
-                    if (parse)
-                    {
-                        var unpfile = new ProjectFile(fileName, fileContent, UserName);
-                        ProjectFile.ParseSourse(unpfile);
-                        ViewBag.st = fileContent;
-                        return View("~/Views/Main/Index.cshtml");
-                    }
+                    //if (parse)
+                    //{
+                    //    var unpfile = new ProjectFile(fileName);
+
+                    //    ProjectFile.ParseSourse(unpfile);
+                    //    ViewBag.st = fileContent;
+                    //    return View("~/Views/Main/Index.cshtml");
+                    //}
                 }
             return View();
         }

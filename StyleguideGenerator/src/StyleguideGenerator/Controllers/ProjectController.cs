@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using StyleguideGenerator.Models;
+using Microsoft.Net.Http.Headers;
 using StyleguideGenerator.Models.Data;
+using StyleguideGenerator.Modules;
 using StyleguideGenerator.Modules.Database;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -59,5 +65,18 @@ namespace StyleguideGenerator.Controllers
             }
             return new RedirectResult(Url.Action("Show", new { name = project.Name }));
         }
+        
+        [HttpPost]
+        public IActionResult RemoveFile(int id = -1)
+        {
+            return View();
+        }
     }
 }
+// multi file upload
+/*
+public async Task<IActionResult> AddFile(ICollection<IFormFile> files)
+        {
+            var uploads = Path.Combine(_hostEnvironment.WebRootPath, UploadFolder);
+            foreach (var file in files)
+*/

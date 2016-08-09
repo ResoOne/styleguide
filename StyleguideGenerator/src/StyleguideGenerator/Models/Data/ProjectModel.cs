@@ -64,8 +64,6 @@ namespace StyleguideGenerator.Models.Data
 
         public void AddFile(ProjectFile file)
         {
-            if (FileList.Contains(file)) return;
-            file.Project?.FileList.Remove(file);
             FileList.Add(file);
             file.Project = this;
         }
@@ -73,7 +71,6 @@ namespace StyleguideGenerator.Models.Data
         public void DelFile(ProjectFile file)
         {
             FileList.Remove(file);
-            NonProjectFiles.Project.FileList.Add(file);
             file.Project = NonProjectFiles.Project;
         }
     }

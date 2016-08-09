@@ -16,7 +16,7 @@ namespace StyleguideGenerator.Modules.Database
         }
         public void NewProject(Project project)
         {
-            ProjectDbQuerys.NewProject.Parameters.SetParamsValues(project.Name, project.Author, project.Description, DatabaseSpecFormats.FormatToDatetime(project.Created));
+            ProjectDbQuerys.NewProject.Parameters.SetParamsValues(project.Name, project.Author, project.Description, DatabaseSpecFormats.FormatDtToString(project.Created));
             var transaction = new DbTransaction(ProjectDbQuerys.NewProject);
             var result = QueryExecuter.Execute(transaction);
         }
