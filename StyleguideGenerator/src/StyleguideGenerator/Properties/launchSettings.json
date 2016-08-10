@@ -31,6 +31,15 @@
         "ASPNETCORE_ENVIRONMENT": "Staging"
       },
       "sdkVersion": "dnx-coreclr-win-x64.1.0.0-rc1-update1"
+    },
+    "web-p": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "sdkVersion": "dnx-coreclr-win-x64.1.0.0-rc1-update1"
     }
   }
 }

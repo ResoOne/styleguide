@@ -3,7 +3,10 @@
   "private": true,
   "dependencies": {
     "jquery": "2.2.3",
-    "open-iconic": "~1.1.1"
+    "open-iconic": "~1.1.1",
+    "list.js": "1.2.0",
+    "Sortable": "1.4.2",
+    "semantic": "2.1.8"
   },
   "resolutions": {
     "jquery": "2.2.3"
