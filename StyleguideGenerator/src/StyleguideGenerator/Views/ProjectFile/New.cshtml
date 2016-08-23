@@ -1,11 +1,37 @@
-﻿<div id="tabs">
-    <span tab-s="1">1111</span>
-    <span tab-s="2">2222</span>
+﻿@using StyleguideGenerator.Models.Data;
+@model ClientProjectFile
+
+<div id="tabs">
+    <span tab-s="1" class="tabsw-sl">Загрузить файлы</span>
+    <span tab-s="2">Добавить код</span>
 </div>
 <div>
-    <div tab="1">1111 fffffffff</div>
-    <div tab="2">22222 ffffffffffff</div>
+    <form method="post" asp-action="New" asp-controller="FileUpload" enctype="multipart/form-data">
+        <input type="hidden" name="loadFile" value="true"/>
+        <select asp-for="@Model.ProjectId" asp-items="@ViewBag.ProjectList"></select>
+        <div tab="1" class="tab-sl">
+            <input type="file" name="files" multiple/>
+            <input type="submit" value="Upload"/>
+        </div>
+        <div tab="2">
+            <label asp-for="@Model.Name"></label>
+            <input type="text" asp-for="@Model.Source"/>
+            <label asp-for="@Model.Name"></label>
+            <input type="text" asp-for="@Model.Name"/>
+        </div>
+    </form>
 </div>
 <script type="text/javascript">
     $("#tabs").tabs();
 </script>
+<style>
+    [tab] {
+        display: none;
+        opacity: 0;
+    }
+
+        [tab].tab-sl {
+            display: block;
+            opacity: 1;
+        }
+</style>

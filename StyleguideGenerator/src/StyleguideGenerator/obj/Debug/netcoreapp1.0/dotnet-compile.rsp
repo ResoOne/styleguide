@@ -221,8 +221,9 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controller
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Common\ExceptionController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Errors\GlobalExceptionController.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Controllers\Errors\StatusCodeController.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Infrastructure\CustomClass.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Infrastructure\GlobalExceptionFilter.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\FileModel.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\ProjectFileModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\ProjectModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\SampleModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\SectionModel.cs
@@ -230,8 +231,8 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Dat
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\SelectionOptionModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Data\SelectorModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Database\CommonDatabaseModels.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Database\ProjectFilesDModel.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Database\ProjectsDModel.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Database\ProjectDbModel.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\Database\ProjectFileDbModel.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\System\AppSettings.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Models\System\ExceptionModels.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\CssParseModule.cs
@@ -241,5 +242,5 @@ C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Fi
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DatabaseQueryExecuter.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DatabaseRequestHandlers.cs
 C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\Database\DatabaseSpecFormats.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectDManager.cs
-C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectFileDManager.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectDbManager.cs
+C:\My Git Repo\styleguide\StyleguideGenerator\src\StyleguideGenerator\Modules\DatabaseDataManages\ProjectFileDbManager.cs

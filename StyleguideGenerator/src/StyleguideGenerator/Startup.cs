@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using StyleguideGenerator.Models.System;
+using StyleguideGenerator.Infrastructure;
 
 namespace StyleguideGenerator
 {
@@ -52,7 +56,22 @@ namespace StyleguideGenerator
             
             //app.UseIISPlatformHandler(); 
             app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(CustomClass.UserFileLoadPath),
+                RequestPath = new PathString(CustomClass.UserFileLoadRequestPath)
+            });
+            if (env.IsDevelopment())
+            {
+                app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+                {
+                    FileProvider = new PhysicalFileProvider(CustomClass.UserFileLoadPath),
+                    RequestPath = new PathString(CustomClass.UserFileLoadRequestPath)
+                });
+            }
             
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("Projects", "Projects/{action}/{name?}", new { controller = "Projects", action = "All" });

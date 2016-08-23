@@ -9,10 +9,6 @@ namespace StyleguideGenerator.Controllers.Errors
 {
     public class StatusCodeController : BaseController
     {
-        public StatusCodeController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
-        {
-        }
-
         [Route("error/{code:int}")]
         // GET: /<controller>/
         public IActionResult Index(int code)

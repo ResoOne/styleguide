@@ -5,7 +5,7 @@ using StyleguideGenerator.Modules.Database;
 
 namespace StyleguideGenerator.Models.Database
 {
-    public static class ProjectFileQuerys
+    public static class ProjectFileDbQuerys
     {
         public static DbQuery SelectFilesByProjectName = new DbQuery()
         {

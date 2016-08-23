@@ -14,9 +14,6 @@ namespace StyleguideGenerator.Controllers
 {
     public class FileUploadController : BaseController
     {
-        public FileUploadController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
-        {
-        }
 
         // GET: /<controller>/
         public IActionResult Index()
@@ -25,32 +22,32 @@ namespace StyleguideGenerator.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Upload(ICollection<IFormFile> files, bool parse = true)
-        {
-            var uploads = Path.Combine(_hostEnvironment.WebRootPath, "uploads");
-            foreach (var file in files)
-                if (file != null && file.Length > 0)
-                {
-                    var disp = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
+        //[HttpPost]
+        //public async Task<IActionResult> Upload(ICollection<IFormFile> files, bool parse = true)
+        //{
+        //    var uploads = Path.Combine("1", "uploads");
+        //    foreach (var file in files)
+        //        if (file != null && file.Length > 0)
+        //        {
+        //            var disp = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                     
-                    var fileName = disp.FileName.Trim('"').Replace(" ","_");
-                    var fileContent = "";
-                    using (var reader = new StreamReader(file.OpenReadStream()))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
-                    //await file.SaveAsAsync(Path.Combine(uploads, g));
-                    //if (parse)
-                    //{
-                    //    var unpfile = new ProjectFile(fileName);
+        //            var fileName = disp.FileName.Trim('"').Replace(" ","_");
+        //            var fileContent = "";
+        //            using (var reader = new StreamReader(file.OpenReadStream()))
+        //            {
+        //                fileContent = reader.ReadToEnd();
+        //            }
+        //            //await file.SaveAsAsync(Path.Combine(uploads, g));
+        //            //if (parse)
+        //            //{
+        //            //    var unpfile = new ProjectFile(fileName);
 
-                    //    ProjectFile.ParseSourse(unpfile);
-                    //    ViewBag.st = fileContent;
-                    //    return View("~/Views/Main/Index.cshtml");
-                    //}
-                }
-            return View();
-        }
+        //            //    ProjectFile.ParseSourse(unpfile);
+        //            //    ViewBag.st = fileContent;
+        //            //    return View("~/Views/Main/Index.cshtml");
+        //            //}
+        //        }
+        //    return View();
+        //}
     }
 }

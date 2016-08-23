@@ -8,8 +8,5 @@ namespace StyleguideGenerator.Controllers.Common
 {
     public class ExceptionController : BaseController
     {
-        public ExceptionController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
-        {
-        }
     }
 }

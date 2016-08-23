@@ -5,34 +5,33 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using StyleguideGenerator.Infrastructure;
 using StyleguideGenerator.Models.Data;
 using StyleguideGenerator.Models.System;
 using StyleguideGenerator.Modules;
-using StyleguideGenerator.Modules.DatabaseDataManages;
+using StyleguideGenerator.Modules.Database;
 
 namespace StyleguideGenerator.Controllers
 {
     public class ProjectFileController : BaseController
     {
-
         private static readonly string UploadFolder = "uploads";
-
-        public ProjectFileController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
-        {
-        }
 
         public IActionResult Show(int id = -1)
         {
             if (id == -1) throw new EmptyParameterValueException();
-            ProjectFileDManager mg = new ProjectFileDManager();
+            ProjectFileDbManager mg = new ProjectFileDbManager();
             var file = mg.GetProjectFileById(id);
+            var d = Directory.GetCurrentDirectory();
             if (file == null) throw new EmptyObjectFromDatabase();
             return View(file);
         }
 
         [HttpGet]
-        public IActionResult New(int projectId = -1)
+        public IActionResult New(int project = -1)
         {
+            ProjectDbManager mg = new ProjectDbManager();
+            ViewBag.ProjectsListmg.GetProjectList(true);
             return View();
         }
 
@@ -43,9 +42,7 @@ namespace StyleguideGenerator.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    var uploads = Path.Combine(_hostEnvironment.WebRootPath, UploadFolder);
                     var disp = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
-
                     var fileName = disp.FileName.Trim('"').Replace(" ", "_");
                     string fileContent = null;
                     var sysFileName = FilesystemFileNameModule.SysFileName(UserName, fileName);
@@ -54,8 +51,7 @@ namespace StyleguideGenerator.Controllers
                         fileContent = reader.ReadToEnd();
                     }
 
-
-                    using (var fileStream = new FileStream(Path.Combine(uploads, sysFileName), FileMode.Create))
+                    using (var fileStream = new FileStream(CustomDef.UserFileLoadPath, FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
                     }
@@ -90,7 +86,7 @@ namespace StyleguideGenerator.Controllers
         public IActionResult Edit(int id = -1)
         {
             if (id == -1) throw new EmptyParameterValueException();
-            ProjectFileDManager mg = new ProjectFileDManager();
+            ProjectFileDbManager mg = new ProjectFileDbManager();
             var file = mg.GetProjectFileById(id);
             if (file == null) throw new EmptyObjectFromDatabase();
             return View(file);

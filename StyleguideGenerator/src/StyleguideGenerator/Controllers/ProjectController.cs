@@ -1,26 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 using StyleguideGenerator.Models.Data;
-using StyleguideGenerator.Modules;
 using StyleguideGenerator.Modules.Database;
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StyleguideGenerator.Controllers
 {
     public class ProjectsController : BaseController
     {
-        private ProjectDManager mg = new ProjectDManager();
-
-        public ProjectsController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
-        {
-        }
-
+        private ProjectDbManager mg = new ProjectDbManager();
+        
         // GET: /<controller>/
         public IActionResult Show(string name = null)
         {
@@ -42,6 +31,15 @@ namespace StyleguideGenerator.Controllers
             return View("AllProjects", list);
         }
 
+
+        public ActionResult NewPr(string name = "non")
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            mg.NewProject(new Project() { Name = name, Author = UserName, Description = "test project from view", Created = DateTime.Now });
+            var list = mg.GetProjectList();
+            return View("Pr", list);
+        }
+
         [HttpGet]
         public IActionResult Edit(string name = null)
         {
@@ -52,7 +50,6 @@ namespace StyleguideGenerator.Controllers
         [HttpPost]
         public IActionResult Edit(Project project)
         {
-            throw new System.Exception("1111");
             if (!ModelState.IsValid) return View(project);
             try
             {
@@ -65,7 +62,30 @@ namespace StyleguideGenerator.Controllers
             }
             return new RedirectResult(Url.Action("Show", new { name = project.Name }));
         }
+
         
+
+        public ActionResult DelPr(int id = -1, string name = "update")
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            if (id != -1)
+            {
+                mg.DeleteProject(id);
+            }
+            var list = mg.GetProjectList();
+            return View("Pr", list);
+        }
+
+        public ActionResult EditPr(int id = -1, string name = "update")
+        {
+            ProjectDbManager mg = new ProjectDbManager();
+            if (id != -1)
+            {
+                mg.EditProject(new Project() { Name = name, ID = id });
+            }
+            var list = mg.GetProjectList();
+            return View("Pr", list);
+        }
         [HttpPost]
         public IActionResult RemoveFile(int id = -1)
         {

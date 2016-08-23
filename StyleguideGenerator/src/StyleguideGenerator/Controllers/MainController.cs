@@ -15,16 +15,13 @@ namespace StyleguideGenerator.Controllers
 {
     public class MainController : BaseController
     {
-        public MainController(IHostingEnvironment hostEnvironment) : base(hostEnvironment)
-        {
-        }
-
         // GET: /<controller>/
         public IActionResult Index()
         {
+            return new RedirectToActionResult("Index", "Projects",null);
             string filename = "sss.css";
             string path = "/Src/Styles/" + filename;
-            string stream = SFile.ReadAllText(_hostEnvironment.ContentRootPath+ "/Src/Styles/sss.css");
+            string stream = SFile.ReadAllText("1"+"/Src/Styles/sss.css");
             ProjectFile unpfile = new ProjectFile(filename,DateTime.Now);
             unpfile.SelectorsLines = CssParseModule.Parse(stream);
             ViewBag.lines = unpfile.SelectorsLines;
@@ -69,7 +66,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult Pr()
         {
-            ProjectDManager mg = new ProjectDManager();
+            ProjectDbManager mg = new ProjectDbManager();
             var list = mg.GetProjectList();
             return View(list);
         }
@@ -81,7 +78,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult NewPr(string name = "non")
         {
-            ProjectDManager mg = new ProjectDManager();
+            ProjectDbManager mg = new ProjectDbManager();
             mg.NewProject(new Project() {  Name = name, Author = UserName, Description = "test project from view", Created = DateTime.Now});
             var list = mg.GetProjectList();
             return View("Pr",list);
@@ -89,7 +86,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult DelPr(int id = -1,string name = "update")
         {
-            ProjectDManager mg = new ProjectDManager();
+            ProjectDbManager mg = new ProjectDbManager();
             if (id != -1)
             {
                 mg.DeleteProject(id);
@@ -100,7 +97,7 @@ namespace StyleguideGenerator.Controllers
 
         public ActionResult EditPr(int id = -1, string name = "update")
         {
-            ProjectDManager mg = new ProjectDManager();
+            ProjectDbManager mg = new ProjectDbManager();
             if (id != -1)
             {
                 mg.EditProject(new Project() { Name = name, ID = id });

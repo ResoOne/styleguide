@@ -4,14 +4,15 @@ using StyleguideGenerator.Models.Database;
 
 namespace StyleguideGenerator.Modules.Database
 {
-    public class ProjectDManager
+    public class ProjectDbManager
     {
-        public List<ProjectView> GetProjectList()
+        public List<ProjectView> GetProjectList(bool withEmpty = false)
         {
             var list = new List<ProjectView>();
             var transaction = new DbTransaction(ProjectDbQuerys.SelectProject);
             var result = QueryExecuter.Execute(transaction);
-            list = result[0] as List<ProjectView>;
+            if (withEmpty) list.Add(NonProjectFiles.ProjectView);
+            list.AddRange(result[0] as List<ProjectView>);
             return list;
         }
         public void NewProject(Project project)
@@ -36,8 +37,8 @@ namespace StyleguideGenerator.Modules.Database
         public Project GetProjectByName(string name)
         {
             ProjectDbQuerys.SelectProjectByName.Parameters.SetParamsValues(name);
-            ProjectFileQuerys.SelectFilesByProjectName.Parameters.SetParamsValues(name);
-            var transaction = new DbTransaction(ProjectDbQuerys.SelectProjectByName, ProjectFileQuerys.SelectFilesByProjectName);
+            ProjectFileDbQuerys.SelectFilesByProjectName.Parameters.SetParamsValues(name);
+            var transaction = new DbTransaction(ProjectDbQuerys.SelectProjectByName, ProjectFileDbQuerys.SelectFilesByProjectName);
             var result = QueryExecuter.Execute(transaction);
             var project = result[0] as Project;
             var files = result[1] as List<ProjectFile>;

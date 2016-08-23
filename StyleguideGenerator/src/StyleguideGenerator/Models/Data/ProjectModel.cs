@@ -83,6 +83,7 @@ namespace StyleguideGenerator.Models.Data
         /// Файлы проекта
         /// </summary>
         public int FileCount { get; set; }
+
     }
 
     /// <summary>
@@ -92,6 +93,20 @@ namespace StyleguideGenerator.Models.Data
     {
         public static readonly Project Project;
 
+        public static ProjectView ProjectView
+        {
+            get
+            {
+                return new ProjectView
+                {
+                    Name = Project.Name,
+                    Author = Project.Author,
+                    Description = Project.Description,
+                    FileCount = Project.FileCount,
+                    ID = Project.ID
+                };
+            }
+        }
         static NonProjectFiles()
         {
             Project = new Project
