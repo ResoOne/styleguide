@@ -26,7 +26,10 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
     "BundlerMinifier.Core": "2.1.258",
-    "CommonMark.NET": "0.13.4"   
+    "CommonMark.NET": "0.13.4",
+    "Highlight.js": "1.0.4",
+    "Microsoft.AspNetCore.Session": "1.0.0",
+    "Microsoft.Extensions.Caching.Memory": "1.0.0"
   },
 
   "tools": {

@@ -34,9 +34,11 @@ namespace StyleguideGenerator
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {            
-            this.ConfigureMvc(services);
-
+        {
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+            ConfigureMvc(services);
+            services.AddDirectoryBrowser();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 
@@ -59,19 +61,18 @@ namespace StyleguideGenerator
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(CustomClass.UserFileLoadPath),
-                RequestPath = new PathString(CustomClass.UserFileLoadRequestPath)
+                FileProvider = new PhysicalFileProvider(CustomStrings.UserFileLoadPath),
+                RequestPath = new PathString(CustomStrings.UserFileLoadRequestPath)
             });
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDirectoryBrowser(new DirectoryBrowserOptions()
                 {
-                    FileProvider = new PhysicalFileProvider(CustomClass.UserFileLoadPath),
-                    RequestPath = new PathString(CustomClass.UserFileLoadRequestPath)
+                    FileProvider = new PhysicalFileProvider(CustomStrings.UserFileLoadPath),
+                    RequestPath = new PathString(CustomStrings.UserFileLoadRequestPath)
                 });
-            }
-            
-
+            //}
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("Projects", "Projects/{action}/{name?}", new { controller = "Projects", action = "All" });

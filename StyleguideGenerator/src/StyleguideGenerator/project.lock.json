@@ -26,6 +26,9 @@
           "lib/netstandard1.0/CommonMark.dll": {}
         }
       },
+      "Highlight.js/1.0.4": {
+        "type": "package"
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -848,6 +851,23 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Session/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Options": "1.0.0",
+          "System.Security.Cryptography.Algorithms": "4.2.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Session.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Session.dll": {}
         }
       },
       "Microsoft.AspNetCore.StaticFiles/1.0.0": {
@@ -4204,6 +4224,51 @@
         "tools/cmark.exe.config"
       ]
     },
+    "Highlight.js/1.0.4": {
+      "sha512": "aSyASPqfi1NyunL+tddx3Rpf4J2sfciVeI0cHRHQKaRRUebP6YTLMTiVvNo8k8rdXwk+33Lpnf08jevoif01Ig==",
+      "type": "package",
+      "path": "Highlight.js/1.0.4",
+      "files": [
+        "Highlight.js.1.0.4.nupkg.sha512",
+        "Highlight.js.nuspec",
+        "content/App_Code/Highlight/Highlight.cs",
+        "content/App_Code/Highlight/LICENSE",
+        "content/App_Code/Highlight/README.md",
+        "content/App_Code/Highlight/README.ru.md",
+        "content/App_Code/Highlight/classref.txt",
+        "content/Content/Highlight/arta.css",
+        "content/Content/Highlight/ascetic.css",
+        "content/Content/Highlight/brown_paper.css",
+        "content/Content/Highlight/brown_papersq.png",
+        "content/Content/Highlight/dark.css",
+        "content/Content/Highlight/default.css",
+        "content/Content/Highlight/far.css",
+        "content/Content/Highlight/github.css",
+        "content/Content/Highlight/googlecode.css",
+        "content/Content/Highlight/idea.css",
+        "content/Content/Highlight/ir_black.css",
+        "content/Content/Highlight/magula.css",
+        "content/Content/Highlight/monokai.css",
+        "content/Content/Highlight/pojoaque.css",
+        "content/Content/Highlight/pojoaque.jpg",
+        "content/Content/Highlight/rainbow.css",
+        "content/Content/Highlight/school_book.css",
+        "content/Content/Highlight/school_book.png",
+        "content/Content/Highlight/solarized_dark.css",
+        "content/Content/Highlight/solarized_light.css",
+        "content/Content/Highlight/sunburst.css",
+        "content/Content/Highlight/tomorrow-night-blue.css",
+        "content/Content/Highlight/tomorrow-night-bright.css",
+        "content/Content/Highlight/tomorrow-night-eighties.css",
+        "content/Content/Highlight/tomorrow-night.css",
+        "content/Content/Highlight/tomorrow.css",
+        "content/Content/Highlight/vs.css",
+        "content/Content/Highlight/xcode.css",
+        "content/Content/Highlight/zenburn.css",
+        "content/Scripts/Highlight/highlight.pack.js",
+        "content/Web.config.transform"
+      ]
+    },
     "Libuv/1.9.0": {
       "sha512": "9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q==",
       "type": "package",
@@ -4781,6 +4846,19 @@
         "lib/net451/Microsoft.AspNetCore.Server.Kestrel.xml",
         "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.dll",
         "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.Session/1.0.0": {
+      "sha512": "RPoUeyNC0OXCcelURzsf5PZnrFC97HNUhQJMMEhBjmDNSAhFpKxgLJydKC3J/G7FxPkO4ciXu37zafPlA8AZqw==",
+      "type": "package",
+      "path": "Microsoft.AspNetCore.Session/1.0.0",
+      "files": [
+        "Microsoft.AspNetCore.Session.1.0.0.nupkg.sha512",
+        "Microsoft.AspNetCore.Session.nuspec",
+        "lib/net451/Microsoft.AspNetCore.Session.dll",
+        "lib/net451/Microsoft.AspNetCore.Session.xml",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Session.dll",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Session.xml"
       ]
     },
     "Microsoft.AspNetCore.StaticFiles/1.0.0": {
@@ -10541,6 +10619,7 @@
     "": [
       "BundlerMinifier.Core >= 2.1.258",
       "CommonMark.NET >= 0.13.4",
+      "Highlight.js >= 1.0.4",
       "Microsoft.ApplicationInsights.AspNetCore >= 1.0.0",
       "Microsoft.AspNet.Http.Extensions >= 1.0.0-rc1-final",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
@@ -10549,8 +10628,10 @@
       "Microsoft.AspNetCore.Razor.Tools >= 1.0.0-preview2-final",
       "Microsoft.AspNetCore.Server.IISIntegration >= 1.0.0",
       "Microsoft.AspNetCore.Server.Kestrel >= 1.0.0",
+      "Microsoft.AspNetCore.Session >= 1.0.0",
       "Microsoft.AspNetCore.StaticFiles >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 1.0.0",
+      "Microsoft.Extensions.Caching.Memory >= 1.0.0",
       "Microsoft.Extensions.Configuration.EnvironmentVariables >= 1.0.0",
       "Microsoft.Extensions.Configuration.Json >= 1.0.0",
       "Microsoft.Extensions.Logging >= 1.0.0",

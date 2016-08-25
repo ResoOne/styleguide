@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using StyleguideGenerator.Models.Data;
+@model ClientProjectFile
+
+<form method="post" asp-action="Edit" asp-controller="FileUpload">
+    <input type="hidden" name="loadFile" id="loadFileFlag" value="true" />
+    <select asp-for="@Model.ProjectId">
+        @foreach (var p in ViewBag.ProjectsList as List<ProjectView>)
+            {
+            <option value="@p.ID">@p.Name</option>
+        }
+    </select>
+
+    <label asp-for="@Model.Name"></label>
+    <input type="text" asp-for="@Model.Name" value="@Model.Name" />
+    <label asp-for="@Model.Source"></label>
+    <textarea type="text" asp-for="@Model.Source"></textarea>
+    </div>
+</form>

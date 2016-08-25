@@ -6,23 +6,35 @@
     <span tab-s="2">Добавить код</span>
 </div>
 <div>
-    <form method="post" asp-action="New" asp-controller="FileUpload" enctype="multipart/form-data">
-        <input type="hidden" name="loadFile" value="true"/>
-        <select asp-for="@Model.ProjectId" asp-items="@ViewBag.ProjectList"></select>
+    <form method="post" asp-action="New" asp-controller="ProjectFile" enctype="multipart/form-data">
+        <input type="hidden" name="loadFile" id="loadFileFlag" value="true" />
+        <select asp-for="@Model.ProjectId">
+            @foreach (var p in ViewBag.ProjectsList as List<ProjectView>)
+            {
+                <option value="@p.ID">@p.Name</option>
+            }
+        </select>
         <div tab="1" class="tab-sl">
-            <input type="file" name="files" multiple/>
-            <input type="submit" value="Upload"/>
+            <input type="file" name="files" />
+            <input type="submit" value="Upload" />
         </div>
         <div tab="2">
             <label asp-for="@Model.Name"></label>
-            <input type="text" asp-for="@Model.Source"/>
-            <label asp-for="@Model.Name"></label>
             <input type="text" asp-for="@Model.Name"/>
+            <label asp-for="@Model.Source"></label>
+            <textarea type="text" asp-for="@Model.Source"></textarea>
         </div>
+        <input type="submit" value="Сохранить"/>
     </form>
 </div>
 <script type="text/javascript">
     $("#tabs").tabs();
+    $("[tab=1]").onChoseTab(function (el) {
+        $("#loadFileFlag").val("true");
+    });
+    $("[tab=2]").onChoseTab(function (el) {
+        $("#loadFileFlag").val("false");
+    })
 </script>
 <style>
     [tab] {

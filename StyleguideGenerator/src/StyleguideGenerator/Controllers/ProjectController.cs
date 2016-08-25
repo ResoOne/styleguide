@@ -31,14 +31,29 @@ namespace StyleguideGenerator.Controllers
             return View("AllProjects", list);
         }
 
-
-        public ActionResult NewPr(string name = "non")
+        [HttpGet]
+        public IActionResult New()
         {
-            ProjectDbManager mg = new ProjectDbManager();
-            mg.NewProject(new Project() { Name = name, Author = UserName, Description = "test project from view", Created = DateTime.Now });
-            var list = mg.GetProjectList();
-            return View("Pr", list);
+            return View();
         }
+
+        [HttpPost]
+        public IActionResult New(Project project)
+        {
+            if (!ModelState.IsValid) return View(project);
+            project.Created = DateTime.Now;
+            try
+            {
+                mg.NewProject(project);
+            }
+            catch
+            {
+                return View(project);
+            }
+            return new RedirectResult(Url.Action("Show", new { name = project.Name }));
+        }
+
+        
 
         [HttpGet]
         public IActionResult Edit(string name = null)

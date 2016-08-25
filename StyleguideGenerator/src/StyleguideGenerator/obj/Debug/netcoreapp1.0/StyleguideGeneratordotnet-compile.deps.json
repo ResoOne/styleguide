@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0/",
-    "signature": "8d22cd0f31f042f4bf121021f1a79d6515719459"
+    "signature": "f4ac174949d43196f29864ddcb64c28b380528c8"
   },
   "compilationOptions": {
     "defines": [
@@ -35,7 +35,10 @@
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
           "BundlerMinifier.Core": "2.1.258",
-          "CommonMark.NET": "0.13.4"
+          "CommonMark.NET": "0.13.4",
+          "Highlight.js": "1.0.4",
+          "Microsoft.AspNetCore.Session": "1.0.0",
+          "Microsoft.Extensions.Caching.Memory": "1.0.0"
         },
         "compile": {
           "StyleguideGenerator.dll": {}
@@ -56,6 +59,7 @@
           "lib/netstandard1.0/CommonMark.dll": {}
         }
       },
+      "Highlight.js/1.0.4": {},
       "Libuv/1.9.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.0.1"
@@ -655,6 +659,19 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Session/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Options": "1.0.0",
+          "System.Security.Cryptography.Algorithms": "4.2.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Session.dll": {}
         }
       },
       "Microsoft.AspNetCore.StaticFiles/1.0.0": {
@@ -2861,7 +2878,10 @@
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
           "BundlerMinifier.Core": "2.1.258",
-          "CommonMark.NET": "0.13.4"
+          "CommonMark.NET": "0.13.4",
+          "Highlight.js": "1.0.4",
+          "Microsoft.AspNetCore.Session": "1.0.0",
+          "Microsoft.Extensions.Caching.Memory": "1.0.0"
         },
         "runtime": {
           "StyleguideGenerator.dll": {}
@@ -2882,6 +2902,7 @@
           "lib/netstandard1.0/CommonMark.dll": {}
         }
       },
+      "Highlight.js/1.0.4": {},
       "Libuv/1.9.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.0.1"
@@ -3481,6 +3502,19 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Session/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Options": "1.0.0",
+          "System.Security.Cryptography.Algorithms": "4.2.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Session.dll": {}
         }
       },
       "Microsoft.AspNetCore.StaticFiles/1.0.0": {
@@ -5583,6 +5617,11 @@
       "serviceable": true,
       "sha512": "sha512-0vk3RiBl6uHdWSvbT1HWQndLa1sbforlEaq/w6OPepCk8s/fUbHI8KooPml1XqZBvQYzkcU/Gxx4dkoOUmy/AA=="
     },
+    "Highlight.js/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aSyASPqfi1NyunL+tddx3Rpf4J2sfciVeI0cHRHQKaRRUebP6YTLMTiVvNo8k8rdXwk+33Lpnf08jevoif01Ig=="
+    },
     "Libuv/1.9.0": {
       "type": "package",
       "serviceable": true,
@@ -5797,6 +5836,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-TNRTsufpdeoa88kR2NU+mO0IZIyJCcBurkdLx4I9d7MpLV1MCnRCrIeTgFIOWpB+j6kytUUXblzhsd0rfk6+bQ=="
+    },
+    "Microsoft.AspNetCore.Session/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RPoUeyNC0OXCcelURzsf5PZnrFC97HNUhQJMMEhBjmDNSAhFpKxgLJydKC3J/G7FxPkO4ciXu37zafPlA8AZqw=="
     },
     "Microsoft.AspNetCore.StaticFiles/1.0.0": {
       "type": "package",

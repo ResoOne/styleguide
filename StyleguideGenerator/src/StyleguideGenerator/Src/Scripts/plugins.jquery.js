@@ -16,7 +16,7 @@
             settings.switchAttrStr = "[" + settings.switchAttr + "]";
             var tabsc = $("[" + settings.switchAttr + "]");
             $(tabsc).on("click", function () {
-                $.fn.tabChange(this);
+                tabChange(this);
             });
             $.fn.tabChange($(tabsc).first());
             return this;
@@ -24,7 +24,7 @@
         return null;
     };
 
-    $.fn.tabChange = function (selectSw) {
+    var tabChange = function (selectSw) {
         selectSw = $(selectSw);
         var chosenSw = $(settings.switchAttrStr).filter(settings.switchChosenClass);
         var chosenTab = $(settings.tabAttrStr).filter(settings.tabChosenClass);
@@ -38,6 +38,9 @@
                     selectSw.addClass(settings.switchChosenClassName);
                     chosenTab.removeClass(settings.tabChosenClassName).removeAttr("style");
                     selectTab.css("opacity", 0).addClass(settings.tabChosenClassName).animate({ "opacity": 1 }, settings.animateTime);
+                    if (selectTab[0].onChoseEvent) {
+                        selectTab[0].onChoseEvent(selectTab[0]);
+                    }
                 });
             } else {
                 $(selectSw).addClass(settings.switchChosenClass);
@@ -45,4 +48,9 @@
             }
         }
     }
+    $.fn.onChoseTab = function(func) {
+        if (func && typeof(func) === "function") {
+            this.onChoseEvent = func;
+        }
+    };
 } (jQuery));

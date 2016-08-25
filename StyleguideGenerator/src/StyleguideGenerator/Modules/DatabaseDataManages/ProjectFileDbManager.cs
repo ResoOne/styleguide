@@ -13,5 +13,26 @@ namespace StyleguideGenerator.Modules.Database
             var p = result[0] as ProjectFile;
             return p;
         }
+
+        public void NewProjectFile(ProjectFile projectFile)
+        {
+            ProjectFileDbQuerys.NewProjectFile.Parameters.SetParamsValues(projectFile.Name, projectFile.FilesystemName,
+                projectFile.ProjectID, projectFile.Type, projectFile.Author, projectFile.Created, projectFile.Source);
+            var transaction = new DbTransaction(ProjectFileDbQuerys.NewProjectFile);
+            var result = QueryExecuter.Execute(transaction);
+        }
+        public void EditProjectFile(ProjectFile projectFile)
+        {
+            ProjectFileDbQuerys.EditProjectFile.Parameters.SetParamsValues(projectFile.ID,projectFile.Name, projectFile.FilesystemName,
+                projectFile.ProjectID, projectFile.Type, projectFile.Source);
+            var transaction = new DbTransaction(ProjectFileDbQuerys.EditProjectFile);
+            var result = QueryExecuter.Execute(transaction);
+        }
+        public void DeleteProjectFile(int id)
+        {
+            ProjectDbQuerys.DeleteProject.Parameters.SetParamsValues(id);
+            var transaction = new DbTransaction(ProjectDbQuerys.DeleteProject);
+            var result = QueryExecuter.Execute(transaction);
+        }
     }
 }

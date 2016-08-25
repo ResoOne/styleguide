@@ -10,6 +10,7 @@ using StyleguideGenerator.Models.Data;
 using StyleguideGenerator.Models.System;
 using StyleguideGenerator.Modules;
 using StyleguideGenerator.Modules.Database;
+using SFile = System.IO.File;
 
 namespace StyleguideGenerator.Controllers
 {
@@ -17,10 +18,11 @@ namespace StyleguideGenerator.Controllers
     {
         private static readonly string UploadFolder = "uploads";
 
+        private ProjectFileDbManager mg = new ProjectFileDbManager();
+
         public IActionResult Show(int id = -1)
         {
             if (id == -1) throw new EmptyParameterValueException();
-            ProjectFileDbManager mg = new ProjectFileDbManager();
             var file = mg.GetProjectFileById(id);
             var d = Directory.GetCurrentDirectory();
             if (file == null) throw new EmptyObjectFromDatabase();
@@ -31,13 +33,17 @@ namespace StyleguideGenerator.Controllers
         public IActionResult New(int project = -1)
         {
             ProjectDbManager mg = new ProjectDbManager();
-            ViewBag.ProjectsListmg.GetProjectList(true);
+            ViewBag.ProjectsList = mg.GetProjectList(true);
+            TempData["ProjectsList"]= ViewBag.ProjectsList;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> New(IFormFile file = null, ClientProjectFile clfile = null, bool loadFile = true)
         {
+            if (TempData.ContainsKey("ProjectsList")) ViewBag.ProjectsList = TempData["ProjectsList"];
+            TempData["ProjectsList"] = ViewBag.ProjectsList;
+            var saveFile = new ProjectFile();
             if (loadFile)
             {
                 if (file != null && file.Length > 0)
@@ -45,21 +51,13 @@ namespace StyleguideGenerator.Controllers
                     var disp = ContentDispositionHeaderValue.Parse(file.ContentDisposition);
                     var fileName = disp.FileName.Trim('"').Replace(" ", "_");
                     string fileContent = null;
-                    var sysFileName = FilesystemFileNameModule.SysFileName(UserName, fileName);
                     using (var reader = new StreamReader(file.OpenReadStream()))
                     {
                         fileContent = reader.ReadToEnd();
                     }
-
-                    using (var fileStream = new FileStream(CustomDef.UserFileLoadPath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-
-                    var saveFile = new ProjectFile(fileName, DateTime.Now);
-                    saveFile.FilesystemName = sysFileName;
+                    saveFile.Name = fileName;
+                    saveFile.Type = FileTypeCheckModule.Check(fileName);
                     saveFile.Source = fileContent;
-                    return View(saveFile);
                 }
                 else RequestErrors.Add("Не добавлен файл для загрузки");
             }
@@ -68,25 +66,43 @@ namespace StyleguideGenerator.Controllers
                 if (clfile == null) RequestErrors.Add("Нет объекта для создания файла");
                 else
                 {
-                    var saveFile = new ProjectFile(clfile.Name, DateTime.Now);
+                    saveFile.Name = clfile.Name;
                     saveFile.Source = clfile.Source;
                     saveFile.Type = clfile.Type;
                     saveFile.ProjectID = clfile.ProjectId;
-                    if (RequestErrors.Count > 0) return View(clfile);
-
                 }
             }
+            if (RequestErrors.Count > 0) return View(clfile);
+            saveFile.Author = UserName;
+            if (!loadFile) saveFile.Name += ".txt";
+            saveFile.FilesystemName = FilesystemFileNameModule.SysFileName(UserName, saveFile.Name);
+            //if (loadFile)
+            //{
+            //    using (var fileStream = new FileStream(CustomStrings.UserFileLoadPath, FileMode.Create))
+            //    {
+            //        await file.CopyToAsync(fileStream);
+            //    }
+            //}
+            //else
+            //{
+            var userPath = Path.Combine(CustomStrings.UserFileLoadPath, UserName);
+            Directory.CreateDirectory(userPath);
+            using (var fileStream = SFile.CreateText(Path.Combine(userPath, saveFile.FilesystemName)))
+            {
+                await fileStream.WriteAsync(saveFile.Source);
+            }
+            //}
+
+            mg.NewProjectFile(saveFile);
 
             ViewBag.Errors = RequestErrors;
             return View();
-
         }
 
         [HttpGet]
         public IActionResult Edit(int id = -1)
         {
             if (id == -1) throw new EmptyParameterValueException();
-            ProjectFileDbManager mg = new ProjectFileDbManager();
             var file = mg.GetProjectFileById(id);
             if (file == null) throw new EmptyObjectFromDatabase();
             return View(file);

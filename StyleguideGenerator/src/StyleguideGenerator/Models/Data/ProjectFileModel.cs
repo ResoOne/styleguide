@@ -35,18 +35,28 @@ namespace StyleguideGenerator.Models.Data
             Type=ProjectFileType.None;
             Created = created;
         }
-        
+        public ProjectFile()
+        {
+            Name = "";
+            Source = null;
+            FilesystemName = null;
+            Project = NonProjectFiles.Project;
+            Type = ProjectFileType.None;
+            Created = DateTime.Now;
+        }
     }
 
     public class ClientProjectFile
     {
-        [Display(Name = "Код")]
+        [Display(Name = "Sourse code")]
+        [Required]
         public string Source { get; set; }
-        [Display(Name = "Имя")]
+        [Display(Name = "Name")]
+        [Required]
         public string Name { get; set; }
-        [Display(Name = "Тип")]
+        [Display(Name = "Filetype")]
         public ProjectFileType Type { get; set; }
-        [Display(Name = "ID Проекта")]
+        [Display(Name = "Project ID")]
         public int ProjectId { get; set; }
     }
 
