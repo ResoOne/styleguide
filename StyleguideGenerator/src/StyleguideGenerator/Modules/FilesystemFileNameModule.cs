@@ -10,7 +10,7 @@ namespace StyleguideGenerator.Modules
         public static string SysFileName(string username, string filename)
         {
 
-            var s = Guid.NewGuid().ToString("N") + "-" + filename;
+            var s = Guid.NewGuid().ToString("N").Substring(0,8) + "-" + filename;
             return s;
         }
     }

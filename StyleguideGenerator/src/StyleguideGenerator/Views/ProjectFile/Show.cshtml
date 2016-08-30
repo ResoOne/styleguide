@@ -1,14 +1,34 @@
 ﻿@using StyleguideGenerator.Models.Data
+@{
+    var projectlink = Url.Action("Show", "Projects", new {name = Model.Project.Name});
+}
 @model ProjectFile
-
-<div>
-    <p>@Model.Name</p>
-    <p>@Model.Source</p>
-    <p>@Model.Type</p>
-    <hr/>
-    <p>@Model.Project.ID</p>
-    <p>@Model.Project.Name</p>
-    <hr/>
-    <a href="@Url.Action("Load")">Load</a>
-    <a href="@Url.Action("Edit")">Edit</a>
-</div>
+@if (Model != null)
+{
+<a href="@projectlink"><=== К проекту</a>
+<hr />
+    <div>
+        <h3>Имя: @Model.Name (@Model.Type)</h3>
+        <div>
+            <span>Автор:</span>
+            <span>@Model.Author</span>
+            <span style="margin-right: 20px;"></span>
+            <span>Дата создания:</span>
+            <span>@Model.Created</span>
+        </div>
+        <div>
+            <span>Проект: </span>
+            <span><a href="@projectlink">@Model.Project.Name</a></span>
+        </div>
+        <div>
+            <p>Код</p>
+            <textarea>@Model.Source</textarea>
+        </div>
+        <hr/>
+        <a href="@Url.Action("Редактировать", new {id = Model.ID})">Edit</a>
+    </div>
+}
+else
+{
+    <div>Такого файла нет</div>
+}

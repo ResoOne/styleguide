@@ -18,7 +18,7 @@ namespace StyleguideGenerator.Models.Database
         /// </summary>
         public static DbQuery SelectFileById = new DbQuery()
         {
-            QueryText = @"Select f.ID,f.Name,f.FsName,f.Type,f.Author,f.Created,f.Sourse,p.Name as ProjectName,p.ID as ProjectId FROM ProjectFiles as f
+            QueryText = @"Select f.ID,f.Name,f.FsName,f.Type,f.Author,f.Created,f.Source,p.Name as ProjectName,p.ID as ProjectId FROM ProjectFiles as f
                             LEFT JOIN Projects as p
                             ON p.ID = f.ProjectId
                             WHERE f.Id = @id",
@@ -61,7 +61,7 @@ namespace StyleguideGenerator.Models.Database
             file.Author = reader["Author"].ToString();
             file.Type = (ProjectFileType)int.Parse(reader["Type"].ToString());
             file.FilesystemName = reader["FsName"].ToString();
-            file.Source = reader["Sourse"].ToString();
+            file.Source = reader["Source"].ToString();
             file.ProjectID = int.Parse(reader["ProjectId"].ToString());
             return file;
         }
@@ -78,9 +78,9 @@ namespace StyleguideGenerator.Models.Database
             file.Author = reader["Author"].ToString();
             file.Type = (ProjectFileType)int.Parse(reader["Type"].ToString());
             file.FilesystemName = reader["FsName"].ToString();
-            file.Source = reader["Sourse"].ToString();
+            file.Source = reader["Source"].ToString();
             var projectID = reader.IsDBNull(7) ? int.Parse(reader["ProjectId"].ToString()) : (int)DbNoSelect.Project;
-            var projectName = reader["ProjectName"].ToString();
+            var projectName = reader.IsDBNull(8) ? reader["ProjectName"].ToString() : NonProjectFiles.Project.Name;
             file.Project = new Project() { ID = projectID, Name = projectName };
             return file;
         }

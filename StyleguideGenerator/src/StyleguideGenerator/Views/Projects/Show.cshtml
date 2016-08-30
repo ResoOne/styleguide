@@ -31,6 +31,8 @@
                     <th>Имя</th>
                     <th>Тип</th>
                     <th>Автор</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,6 +42,7 @@
                             <td><a href="@Url.Action("Show","ProjectFile",new {id=f.ID})">@f.Name</a></td>
                             <td>@f.Type</td>
                             <td>@f.Author</td>
+                            <td><a href="@Url.Action("Edit","ProjectFile")"></a></td>
                         </tr>
                     }
 

@@ -35,7 +35,7 @@ namespace StyleguideGenerator
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDistributedMemoryCache();
+            services.AddMemoryCache();
             services.AddSession();
             ConfigureMvc(services);
             services.AddDirectoryBrowser();
@@ -45,6 +45,8 @@ namespace StyleguideGenerator
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseSession();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,7 +74,7 @@ namespace StyleguideGenerator
                     RequestPath = new PathString(CustomStrings.UserFileLoadRequestPath)
                 });
             //}
-            app.UseSession();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute("Projects", "Projects/{action}/{name?}", new { controller = "Projects", action = "All" });

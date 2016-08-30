@@ -18,7 +18,7 @@ namespace StyleguideGenerator.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return new RedirectToActionResult("Index", "Projects",null);
+            return new RedirectToActionResult("All", "Projects",null);
             string filename = "sss.css";
             string path = "/Src/Styles/" + filename;
             string stream = SFile.ReadAllText("1"+"/Src/Styles/sss.css");

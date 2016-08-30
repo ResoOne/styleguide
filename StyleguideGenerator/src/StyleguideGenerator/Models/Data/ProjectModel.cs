@@ -32,16 +32,16 @@ namespace StyleguideGenerator.Models.Data
         /// Дата создания
         /// </summary>
         public DateTime Created { get; set; }
+        /// <summary>
+        /// Readme
+        /// </summary>
+        public string Readme { get; set; }
     }
     /// <summary>
     /// Проект
     /// </summary>
     public class Project : BaseProject
     {
-        /// <summary>
-        /// Readme
-        /// </summary>
-        public string Readme { get; set; }
         /// <summary>
         /// Файлы проекта
         /// </summary>
@@ -103,7 +103,8 @@ namespace StyleguideGenerator.Models.Data
                     Author = Project.Author,
                     Description = Project.Description,
                     FileCount = Project.FileCount,
-                    ID = Project.ID
+                    ID = Project.ID,
+                    Readme = ""
                 };
             }
         }
@@ -115,7 +116,8 @@ namespace StyleguideGenerator.Models.Data
                 Author = "System",
                 Description = "Файлы без проекта",
                 FileList = new List<ProjectFile>(),
-                ID=0
+                ID=0,
+                Readme = ""
             };
         }
     }

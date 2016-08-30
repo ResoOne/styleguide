@@ -54,7 +54,9 @@ namespace StyleguideGenerator.Models.Database
                 this[key] = null;
                 if (i < l)
                 {
-                    this[key] = values[i];
+                    var val = values[i];
+                    if (val.GetType() == typeof(DateTime)) val = DatabaseSpecFormats.FormatDtToString((DateTime)val);
+                    this[key] = val;
                 }
                 else break;
             }

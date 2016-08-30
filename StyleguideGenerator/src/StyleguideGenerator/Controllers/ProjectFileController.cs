@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -29,20 +30,36 @@ namespace StyleguideGenerator.Controllers
             return View(file);
         }
 
+        [NonAction]
+        private void InitEdit()
+        {
+            //if (TempData != null && TempData.ContainsKey("ProjectsList"))
+            //{
+            //    ViewBag.ProjectsList = TempData["ProjectsList"];
+            //}
+            //else
+            //{
+                ProjectDbManager mg = new ProjectDbManager();
+                ViewBag.ProjectsList = mg.GetProjectList(true);
+            //}
+            //if (TempData != null)
+            //{
+            //    TempData["ProjectsList"] = ViewBag.ProjectsList;
+            //}
+            
+        }
+
         [HttpGet]
         public IActionResult New(int project = -1)
         {
-            ProjectDbManager mg = new ProjectDbManager();
-            ViewBag.ProjectsList = mg.GetProjectList(true);
-            TempData["ProjectsList"]= ViewBag.ProjectsList;
+            InitEdit();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> New(IFormFile file = null, ClientProjectFile clfile = null, bool loadFile = true)
         {
-            if (TempData.ContainsKey("ProjectsList")) ViewBag.ProjectsList = TempData["ProjectsList"];
-            TempData["ProjectsList"] = ViewBag.ProjectsList;
+            InitEdit();
             var saveFile = new ProjectFile();
             if (loadFile)
             {
@@ -95,8 +112,8 @@ namespace StyleguideGenerator.Controllers
 
             mg.NewProjectFile(saveFile);
 
-            ViewBag.Errors = RequestErrors;
-            return View();
+            var n = (ViewBag.ProjectsList as List<ProjectView>).Find(l => l.ID == saveFile.ProjectID).Name;
+            return new RedirectResult(Url.Action("Show", "Projects" ,new { name = n }));
         }
 
         [HttpGet]
@@ -113,10 +130,14 @@ namespace StyleguideGenerator.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public IActionResult Delete(int id = -1)
         {
-            return View();
+            if (id != = -1)
+            {
+                mg.DeleteProjectFile(id);
+            }
+            return View("");
         }
 
         [NonAction]
